@@ -36,6 +36,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
+    stock = models.IntegerField(default=0)
     createdTime = models.DateTimeField(auto_now_add=True)
     sub_category = models.ForeignKey(
         Sub_Category, on_delete=models.CASCADE, null=True)

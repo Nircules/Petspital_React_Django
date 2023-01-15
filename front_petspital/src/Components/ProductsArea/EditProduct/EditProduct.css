@@ -1,0 +1,27 @@
+.EditProduct>form {
+    width: 350px;
+}
+
+.EditProduct>h2 {
+    text-align: center;
+}
+
+.EditProduct input,
+.EditProduct button {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.EditProduct span {
+    color: red;
+    /* margin: 0 20px; */
+    /* position: absolute; */
+    /* Will stay exactly where it is. */
+}
+
+.EditProduct img {
+    padding-bottom: 10px;
+    margin-left: 75px;
+    border-radius: 25px;
+}
