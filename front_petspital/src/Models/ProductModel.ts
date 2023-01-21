@@ -1,5 +1,3 @@
-import SubCategoryModel from "./SubCategoryModel";
-
 class ProductModel {
     public id: number;
     public name: string;

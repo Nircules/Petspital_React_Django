@@ -1,5 +1,3 @@
-import CategoryModel from "./CategoryModel";
-
 class SubCategoryModel {
     public category: number;
     public name: string;

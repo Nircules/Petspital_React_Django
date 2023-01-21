@@ -37,10 +37,11 @@ class Product(models.Model):
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     stock = models.IntegerField(default=0)
+    image = models.ImageField(upload_to=f"static/products_images/",
+                              height_field=None, width_field=None, max_length=None, null=True)
     createdTime = models.DateTimeField(auto_now_add=True)
     sub_category = models.ForeignKey(
         Sub_Category, on_delete=models.CASCADE, null=True)
-    fields = ['prod_name', 'description', 'price']
 
     def __str__(self):
         return self.name

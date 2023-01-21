@@ -1,7 +1,5 @@
-import SpecieModel from "./SpecieModel";
-
 class CategoryModel {
-    public specie: SpecieModel;
+    public specie: number;
     public name: string;
 }
 
