@@ -7,29 +7,20 @@ import config from "../Utils/Config";
 class AuthService {
 
     public async register(user: UserModel): Promise<void> {
-
         const response = await axios.post<string>(config.registerUrl, user);
-
         const token = response.data;
         console.log(token);
         authStore.dispatch({ type: AuthActionType.Register, payload: token })
     }
 
-
     public async login(credentials: CredentialsModel): Promise<void> {
-
         const response = await axios.post<string>(config.loginUrl, credentials);
-
         const token = response.data;
-
         authStore.dispatch({ type: AuthActionType.Login, payload: token })
     }
 
     public logout(): void {
-
         authStore.dispatch({ type: AuthActionType.Logout });
-
-
     }
 
 }
