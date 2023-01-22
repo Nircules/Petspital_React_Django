@@ -15,12 +15,16 @@ class ProductsService {
     }
 
     public async getOneProductById(id: number): Promise<ProductModel> {
+
         let products = productsStore.getState().products;
+
         let product = products.find(p => p.id === id);
+
         if (!product) {
             const response = await axios.get<ProductModel>(config.productsUrl + id);
             product = response.data;
         }
+
         return product;
     }
 
