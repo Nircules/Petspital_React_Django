@@ -7,7 +7,6 @@ export class AuthState {
     public token: string = null;
     public user: UserModel = null;
 
-
     public constructor() {
         this.token = localStorage.getItem("token");
         if (this.token) {
@@ -17,8 +16,6 @@ export class AuthState {
     }
 
 }
-
-
 // 2. Auth Action Type 
 export enum AuthActionType {
     Register = "Register",
@@ -26,22 +23,16 @@ export enum AuthActionType {
     Logout = "Logout"
 }
 
-
 // 3. Auth Action
 export interface AuthAction {
     type: AuthActionType,
     payload?: string; //something else...
 }
 
-
 // 4. Auth Reducer
 export function authReducer(currentState = new AuthState(), action: AuthAction): AuthState {
-
     const newState = { ...currentState };
-
-
     switch (action.type) {
-
         case AuthActionType.Register: //Here the payload is the token (string)
         case AuthActionType.Login: //Here the payload is the token (string)
             newState.token = action.payload;
@@ -55,7 +46,6 @@ export function authReducer(currentState = new AuthState(), action: AuthAction):
             localStorage.removeItem("token");
             break;
     }
-
     return newState;
 }
 
