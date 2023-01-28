@@ -15,7 +15,7 @@ function ProductCard(props: ProductCardProps): JSX.Element {
             <div className="col">
                 <div className="card">
                     <NavLink to={`/products/details/` + props.product.id}>
-                        <img src={config.productImagesUrl + props.product.imageName} className="card-img-top" alt="..." />
+                        <img src={config.productImagesUrl + props.product.image} className="card-img-top" alt="..." />
                     </NavLink>
                     <div className="card-body">
                         <h5 className="card-title">{props.product.name}</h5>

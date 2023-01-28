@@ -4,7 +4,7 @@ class ProductModel {
     public description: string;
     public price: number;
     public stock: number;
-    public image: File;
+    public image: FileList;
     public createdTime: Date;
     public sub_category: number;
 }
