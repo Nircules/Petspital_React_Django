@@ -19,7 +19,9 @@ function ProductCard(props: ProductCardProps): JSX.Element {
                     </NavLink>
                     <div className="card-body">
                         <h5 className="card-title">{props.product.name}</h5>
+                        <p className="card-text">{props.product.description}</p>
                         <p className="card-text">{props.product.price}₪</p>
+                        <p className="card-text">{props.product.sub_category}</p>
                         <p className="card-text">stock: {props.product.stock}</p>
                     </div>
                 </div>

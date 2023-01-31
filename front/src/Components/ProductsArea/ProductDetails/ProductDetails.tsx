@@ -35,6 +35,7 @@ function ProductDetails(): JSX.Element {
                     <img src={config.productImagesUrl + product.image} className="card-img-top" alt="..." />
                     <div className="card-body">
                         <h5 className="card-text">{product.name}</h5>
+                        <p className="card-text">{product.description}</p>
                         <p className="card-text">{product.price}₪</p>
                         <p className="card-text">stock:{product.stock}</p>
                     </div>

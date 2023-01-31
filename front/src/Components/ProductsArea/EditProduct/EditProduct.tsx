@@ -68,7 +68,7 @@ function EditProduct(): JSX.Element {
                     <span>{formState.errors.stock?.message}</span>
                     <label>stock</label>
                 </div>
-                <img src={config.productImagesUrl + product?.imageName} />
+                <img src={config.productImagesUrl + product?.image} />
 
                 <div className="input-group mb-3">
                     <input type="file" className="form-control" id="inputGroupFile01" accept="image/*"  {...register("image")} />

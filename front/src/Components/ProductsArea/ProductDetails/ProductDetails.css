@@ -1,3 +1,8 @@
 .ProductDetails .card {
     width: 18rem;
 }
+
+.ProductDetails img {
+    max-width: 250px;
+    max-height: 250px;
+}
