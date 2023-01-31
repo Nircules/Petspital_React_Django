@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital@1&family=Karantina&family=Poppins:wght@300&display=swap');
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  text-align: center;
+  font-style: italic;
+  color: black;
+  font-family: 'Cabin', sans-serif;
+  font-family: 'Karantina', cursive;
+  font-family: 'Poppins', sans-serif;
+  background-image: linear-gradient(to right top, #288157, #4b8e5b, #699b61, #85a868, #a1b571, #a7c07b, #aeca86, #b4d591, #a3e0a3, #8eeaba, #78f3d4, #5ffbf1);
+  overflow: hidden;
+}
+
+.Box {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px;
+  text-align: left;
+}
+
+.Box>p {
+  margin: 0;
+}
+
+a {
+  color: blue;
+}
