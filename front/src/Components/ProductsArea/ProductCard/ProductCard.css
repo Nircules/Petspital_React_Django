@@ -1,8 +1,25 @@
 .ProductCard {
     max-width: 250px;
+    margin-left: 20px;
+    margin-top: 60px;
 }
 
 .ProductCard img {
     max-width: 250px;
-    max-height: 250px;
+    height: 250px;
+}
+
+.ProductCard .card {
+    width: 250px;
+    max-height: 500px;
+    box-shadow: 0 4px 8px 6px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ProductCard .card-body {
+    overflow-y: auto;
+}
+
+.ProductCard .card-title {
+    font-size: 150%;
+    text-decoration: underline;
 }

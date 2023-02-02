@@ -17,8 +17,8 @@ function ProductCard(props: ProductCardProps): JSX.Element {
                     <NavLink to={`/products/details/` + props.product.id}>
                         <img src={config.productImagesUrl + props.product.image} className="card-img-top" alt="..." />
                     </NavLink>
+                    <h5 className="card-header">{props.product.name}</h5>
                     <div className="card-body">
-                        <h5 className="card-title">{props.product.name}</h5>
                         <p className="card-text">{props.product.description}</p>
                         <p className="card-text">{props.product.price}₪</p>
                         <p className="card-text">{props.product.sub_category}</p>
