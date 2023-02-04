@@ -1,20 +1,26 @@
 .Layout {
     height: 100%;
-    box-sizing: border-box; /* Real with and height */
+    box-sizing: border-box;
+    /* Real width and height */
     display: grid;
-    grid-template-rows: 15% 80% 5%;
-    grid-template-columns: repeat(6, 1fr); /* fr = Fraction = יחידת מידה אחת */
+    grid-template-rows: 10% 85% 5%;
+    grid-template-columns: repeat(6, 1fr);
+    /* fr = Fraction = יחידת מידה אחת */
 }
 
-.Layout > header, .Layout > footer {
-    grid-column: span 6; /* span = מתפרש */
+.Layout>header,
+.Layout>footer {
+    grid-column: span 6;
+    /* span = מתפרש */
 }
 
-.Layout > main {
+.Layout>main {
     grid-column: span 5;
     overflow: auto;
+    background-color: rgba(255, 255, 255, 0.363);
 }
 
-.Layout, .Layout > * {
+.Layout,
+.Layout>* {
     border: 1px solid black;
 }

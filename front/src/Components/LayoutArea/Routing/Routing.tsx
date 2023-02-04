@@ -1,4 +1,4 @@
-import {Navigate, Route, Routes} from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "../../HomeArea/Home/Home";
 import AddProduct from "../../ProductsArea/AddProduct/AddProduct";
 import EditProduct from "../../ProductsArea/EditProduct/EditProduct";
@@ -14,16 +14,16 @@ function Routing(): JSX.Element {
     return (
         <div className="Routing">
             <Routes>
-                <Route path="/" element={<Navigate to="/home"/>}></Route>
-                <Route path="/home" element={<Home/>}></Route>
-                <Route path="/products" element={<ProductsList/>}></Route>
-                <Route path="/products/details/:prodId" element={<ProductDetails/>}></Route>
-                <Route path="/products/new" element={<AddProduct/>}></Route>
-                <Route path="/products/edit/:prodToEdit" element={<EditProduct/>}></Route>
-                <Route path="/register" element={<Register/>}></Route>
-                <Route path="/login" element={<Login/>}></Route>
-                <Route path="/logout" element={<Logout/>}></Route>
-                <Route path="/*" element={<NotFound404/>}></Route>
+                <Route path="/" element={<Navigate to="/home" />}></Route>
+                <Route path="/home" element={<Home />}></Route>
+                <Route path="/products" element={<ProductsList />}></Route>
+                <Route path="/products/details/:prodId" element={<ProductDetails />}></Route>
+                <Route path="/products/new" element={<AddProduct />}></Route>
+                <Route path="/products/edit/:prodToEdit" element={<EditProduct />}></Route>
+                <Route path="/register" element={<Register />}></Route>
+                <Route path="/login" element={<Login />}></Route>
+                <Route path="/logout" element={<Logout />}></Route>
+                <Route path="/*" element={<NotFound404 />}></Route>
             </Routes>
         </div>
     );
