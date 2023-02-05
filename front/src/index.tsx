@@ -4,15 +4,18 @@ import { BrowserRouter } from 'react-router-dom';
 import Layout from './Components/LayoutArea/Layout/Layout';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import { ProSidebarProvider } from 'react-pro-sidebar';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   // <React.StrictMode>
-  <BrowserRouter>
-    <Layout />
-  </BrowserRouter>
+  <ProSidebarProvider>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
+  </ProSidebarProvider>
   // {/* </React.StrictMode> */}
 );
 
