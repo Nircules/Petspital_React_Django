@@ -19,6 +19,7 @@ function Login(): JSX.Element {
 
     return (
         <div className="Login Box">
+            <h2>Login</h2>
             <form onSubmit={handleSubmit(send)}>
                 <div className="form-floating">
                     <input type="text" className="form-control" {...register("username")}/>
