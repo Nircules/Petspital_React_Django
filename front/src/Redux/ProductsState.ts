@@ -1,5 +1,5 @@
 import ProductModel from "../Models/ProductModel";
-import {createStore} from "redux";
+import { createStore } from "redux";
 
 export class ProductsState {
     public products: ProductModel[] = [];
@@ -7,6 +7,7 @@ export class ProductsState {
 
 export enum ProductsActionTypes {
     FetchAllProducts = "Fetch All Products",
+    FetchCategoryProducts = "Fetch Category Products",
     AddProduct = "Add Product",
     EditProduct = "Edit Prodcut",
     DeleteProduct = "Delete Product"
@@ -18,9 +19,12 @@ export interface ProductsAction {
 }
 
 export function productsReducer(currentState = new ProductsState(), action: ProductsAction) {
-    const newState = {...currentState};
+    const newState = { ...currentState };
     switch (action.type) {
         case ProductsActionTypes.FetchAllProducts:
+            newState.products = action.payload;
+            break;
+        case ProductsActionTypes.FetchCategoryProducts:
             newState.products = action.payload;
             break;
         case ProductsActionTypes.AddProduct:

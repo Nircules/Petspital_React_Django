@@ -1,19 +1,23 @@
 import axios from "axios";
 import ProductModel from "../Models/ProductModel";
 import config from "../Utils/Config";
-import {ProductsActionTypes, productsStore} from "../Redux/ProductsState";
+import { ProductsActionTypes, productsStore } from "../Redux/ProductsState";
 
 class ProductsService {
 
     public async fetchAllProducts(): Promise<ProductModel[]> {
         let products = productsStore.getState().products;
-        if (products.length === 0) {
-            const response = await axios.get<ProductModel[]>(config.productsUrl);
-            products = response.data
-        }
+        const response = await axios.get<ProductModel[]>(config.productsUrl);
+        products = response.data
+        productsStore.dispatch({ type: ProductsActionTypes.FetchAllProducts, payload: products })
+        return products;
+    }
 
-        productsStore.dispatch({type: ProductsActionTypes.FetchAllProducts, payload: products})
-
+    public async categoryProducts(id: number): Promise<ProductModel[]> {
+        let products = productsStore.getState().products;
+        const response = await axios.get<ProductModel[]>(config.categoriesUrl + id);
+        products = response.data
+        productsStore.dispatch({ type: ProductsActionTypes.FetchCategoryProducts, payload: products })
         return products;
     }
 
@@ -37,7 +41,7 @@ class ProductsService {
         const response = await axios.post<ProductModel>(config.productsUrl, formData);
         const addedProduct = response.data;
 
-        productsStore.dispatch({type: ProductsActionTypes.AddProduct, payload: addedProduct})
+        productsStore.dispatch({ type: ProductsActionTypes.AddProduct, payload: addedProduct })
         return addedProduct;
     }
 
@@ -53,13 +57,13 @@ class ProductsService {
         const response = await axios.put<ProductModel>(config.productsUrl + product.id, formData)
         const editedProduct = response.data;
 
-        productsStore.dispatch({type: ProductsActionTypes.EditProduct, payload: editedProduct})
+        productsStore.dispatch({ type: ProductsActionTypes.EditProduct, payload: editedProduct })
         return editedProduct;
     }
 
     public async deleteProduct(id: number): Promise<void> {
         await axios.delete(config.productsUrl + id);
-        productsStore.dispatch({type: ProductsActionTypes.DeleteProduct, payload: id})
+        productsStore.dispatch({ type: ProductsActionTypes.DeleteProduct, payload: id })
     }
 }
 
