@@ -8,12 +8,11 @@ import Loading from "../../SharedArea/Loading/Loading";
 
 function CategoryProductsList(): JSX.Element {
     const params = useParams();
-    console.log(params.subCategoryId)
     const sub_cat_id = parseInt(params.subCategoryId)
     const [products, setProducts] = useState<ProductModel[]>([]);
 
     useEffect(() => {
-        productsService.categoryProducts(sub_cat_id)
+        productsService.subCategoryProducts(sub_cat_id)
             .then(productsFromBackend => setProducts(productsFromBackend))
             .catch(err => alert(err.message))
     }, [sub_cat_id])

@@ -13,7 +13,7 @@ class ProductsService {
         return products;
     }
 
-    public async categoryProducts(id: number): Promise<ProductModel[]> {
+    public async subCategoryProducts(id: number): Promise<ProductModel[]> {
         let products = productsStore.getState().products;
         const response = await axios.get<ProductModel[]>(config.subCategoriesUrl + id);
         products = response.data
