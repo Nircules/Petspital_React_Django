@@ -22,11 +22,11 @@ function MenuComponent(): JSX.Element {
                 }}>
                     <MenuItem component={<NavLink to="/" />} > Home </MenuItem>
                     <MenuItem component={<NavLink to="/products" />}> All Products </MenuItem>
+                    <hr className="test" />
                     <SubMenu label="Categories">
                         <MenuItem component={<NavLink to="/sub_category/1" />}> Cat 1 </MenuItem>
                         <MenuItem component={<NavLink to="/sub_category/2" />}> Cat 2 </MenuItem>
                     </SubMenu>
-                    <MenuItem> Calendar </MenuItem>
                 </Menu>
             </Sidebar>
         </div >
