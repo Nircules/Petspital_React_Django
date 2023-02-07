@@ -9,7 +9,6 @@ interface ProductCardProps {
 
 
 function ProductCard(props: ProductCardProps): JSX.Element {
-    console.log(props.product.image)
     return (
         <div className="ProductCard">
             <div className="col">

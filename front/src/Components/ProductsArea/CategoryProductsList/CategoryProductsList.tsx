@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import ProductModel from "../../../Models/ProductModel";
 import productsService from "../../../Services/ProductsService";
 import ProductCard from "../ProductCard/ProductCard";
@@ -7,12 +7,16 @@ import "./CategoryProductsList.css";
 import Loading from "../../SharedArea/Loading/Loading";
 
 function CategoryProductsList(): JSX.Element {
+    const params = useParams();
+    console.log(params.categoryId)
+    const cat_id = parseInt(params.categoryId)
     const [products, setProducts] = useState<ProductModel[]>([]);
+
     useEffect(() => {
-        productsService.categoryProducts(1)
+        productsService.categoryProducts(cat_id)
             .then(productsFromBackend => setProducts(productsFromBackend))
             .catch(err => alert(err.message))
-    }, [])
+    }, [cat_id])
 
     return (
         <div className="ProductsList">
