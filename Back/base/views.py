@@ -13,9 +13,9 @@ def myProducts(req):
     return JsonResponse(all_products, safe=False)
 
 
-def productsByCategory(req, category_id):
+def productsByCategory(req, sub_category_id):
     filtered_products = ProductSerializer(
-        Product.objects.filter(sub_category=category_id), many=True).data
+        Product.objects.filter(sub_category=sub_category_id), many=True).data
     sub_cat = Sub_Category.objects.get(id=filtered_products[0]['sub_category'])
     print(sub_cat)
     return JsonResponse(filtered_products, safe=False)

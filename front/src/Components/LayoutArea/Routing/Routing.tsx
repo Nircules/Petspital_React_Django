@@ -18,7 +18,7 @@ function Routing(): JSX.Element {
                 <Route path="/" element={<Navigate to="/home" />}></Route>
                 <Route path="/home" element={<Home />}></Route>
                 <Route path="/products" element={<ProductsList />}></Route>
-                <Route path="/category/:categoryId" element={<CategoryProductsList />}></Route>
+                <Route path="/sub_category/:subCategoryId" element={<CategoryProductsList />}></Route>
                 <Route path="/products/details/:prodId" element={<ProductDetails />}></Route>
                 <Route path="/products/new" element={<AddProduct />}></Route>
                 <Route path="/products/edit/:prodToEdit" element={<EditProduct />}></Route>
