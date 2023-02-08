@@ -3,8 +3,10 @@ import "./MenuComponent.css";
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { useEffect, useState } from "react";
 import SpecieModel from "../../../Models/SpecieModel";
-import config from "../../../Utils/Config";
 import axios from "axios";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
 function MenuComponent(): JSX.Element {
     const [species, setSpecies] = useState<SpecieModel[]>([]);
@@ -44,6 +46,11 @@ function MenuComponent(): JSX.Element {
                     {species.map(specie => <SubMenu label={specie.name} key={specie.id}>
                         <MenuItem component={<NavLink to={"/sub_category/" + specie.id} />}> Cat 1</MenuItem>
                         <MenuItem component={<NavLink to="/sub_category/2" />}> Cat 2 </MenuItem>
+                    </SubMenu>)}
+                    {species.map(specie => <SubMenu label={specie.name} key={specie.id}>
+                        <MenuItem component={<DropdownButton title='ds' drop='end' children={""} />}>
+                            <DropdownItem>Hi</DropdownItem>
+                        </MenuItem>
                     </SubMenu>)}
                 </Menu>
             </Sidebar>
