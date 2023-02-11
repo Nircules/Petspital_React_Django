@@ -4,20 +4,27 @@ import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { useEffect, useState } from "react";
 import SpecieModel from "../../../Models/SpecieModel";
 import axios from "axios";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import CategoryModel from "../../../Models/CategoryModel";
+import menuService from "./MenuFunctions";
 
 function MenuComponent(): JSX.Element {
+    interface SpeciesAndCategories {
+        key: number;
+        categories: CategoryModel[];
+    }
     const [species, setSpecies] = useState<SpecieModel[]>([]);
+    const [categoriesPerSpecie, setCategories] = useState<CategoryModel[]>([])
+    const speciesDict = {};
     useEffect(() => {
-        async function fetchSpecies() {
-            const response = await axios.get<SpecieModel[]>('http://127.0.0.1:8000/species');
-            return response.data
-        }
-        fetchSpecies()
-            .then(speciesFromBack => setSpecies(speciesFromBack))
+        menuService.fetchSpecies()
+            .then(speciesFromBack => (setSpecies(speciesFromBack)))
             .catch(err => alert(err.message))
+        // species.forEach(specie => {
+        //     speciesDict
+        // })
+        console.log(speciesDict)
+
     }, []);
 
     return (
@@ -26,6 +33,7 @@ function MenuComponent(): JSX.Element {
             <Sidebar className="Sidebar" style={{
                 width: "100%", fontSize: "150%",
                 background: "linear-gradient(90deg, rgba(255,213,145,1) 0%, rgba(255,229,186,1) 20%, rgba(255,229,186,1) 80%, rgba(255,213,145,1) 100%)",
+                zIndex: 1,
             }}>
                 <Menu menuItemStyles={{
                     button: ({ active, disabled }) => {
@@ -43,14 +51,19 @@ function MenuComponent(): JSX.Element {
                     <MenuItem component={<NavLink to="/" />} > Home </MenuItem>
                     <MenuItem component={<NavLink to="/products" />}> All Products </MenuItem>
                     <hr />
+
+                    {species.map(specie =>
+                        <SubMenu label={specie.name} key={specie.id}>
+                            {categoriesPerSpecie.map(category =>
+                                <SubMenu label={category.name} key={category.id} className="SubSub">
+                                    <DropdownItem>Hi</DropdownItem>
+                                    <DropdownItem>Hi</DropdownItem>
+                                    <DropdownItem>Hi</DropdownItem>
+                                    <DropdownItem>Hi</DropdownItem>
+                                </SubMenu>)}
+                        </SubMenu>)}
                     {species.map(specie => <SubMenu label={specie.name} key={specie.id}>
-                        <MenuItem component={<NavLink to={"/sub_category/" + specie.id} />}> Cat 1</MenuItem>
-                        <MenuItem component={<NavLink to="/sub_category/2" />}> Cat 2 </MenuItem>
-                    </SubMenu>)}
-                    {species.map(specie => <SubMenu label={specie.name} key={specie.id}>
-                        <MenuItem component={<DropdownButton title='ds' drop='end' children={""} />}>
-                            <DropdownItem>Hi</DropdownItem>
-                        </MenuItem>
+
                     </SubMenu>)}
                 </Menu>
             </Sidebar>

@@ -7,24 +7,7 @@ hr {
     border-top: 5px solid #f27ef7 !important;
 }
 
-.dropdown-toggle {
-    display: block;
-    width: 100%;
-    height: 99%;
-    border: none;
-    background-color: #04AA6D;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
+.SubSub {
     text-align: center;
-}
-
-.dropend {
-    background-color: red;
-    justify-content: left;
-}
-
-.show {
-    position: absolute !important;
-    z-index: 1;
+    background-color: #eecef9;
 }
