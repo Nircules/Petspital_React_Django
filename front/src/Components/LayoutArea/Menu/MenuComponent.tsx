@@ -3,27 +3,29 @@ import "./MenuComponent.css";
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { useEffect, useState } from "react";
 import SpecieModel from "../../../Models/SpecieModel";
-import axios from "axios";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import CategoryModel from "../../../Models/CategoryModel";
 import menuService from "./MenuFunctions";
 
 function MenuComponent(): JSX.Element {
     interface SpeciesAndCategories {
-        key: number;
+        specie: SpecieModel;
         categories: CategoryModel[];
     }
     const [species, setSpecies] = useState<SpecieModel[]>([]);
     const [categoriesPerSpecie, setCategories] = useState<CategoryModel[]>([])
-    const speciesDict = {};
+    const speciesDict: { [key: number]: SpeciesAndCategories } = {};
     useEffect(() => {
         menuService.fetchSpecies()
             .then(speciesFromBack => (setSpecies(speciesFromBack)))
             .catch(err => alert(err.message))
-        // species.forEach(specie => {
-        //     speciesDict
-        // })
-        console.log(speciesDict)
+        
+        species.forEach(specie => {
+            menuService.fetchCategories(specie.id)
+            
+            // speciesDict[specie.id] = {specie: specie, categories: menuService.fetchCategories(specie.id)}
+        })
+        // console.log(speciesDict)
 
     }, []);
 

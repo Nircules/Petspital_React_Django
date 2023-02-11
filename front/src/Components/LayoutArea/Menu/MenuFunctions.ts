@@ -10,6 +10,7 @@ class MenuFunctions {
 
     public async fetchCategories(specieId: number) {
         const response = await axios.get<CategoryModel[]>('http://127.0.0.1:8000/categories/' + specieId);
+        console.log(response.data)
         return response.data
     }
 }
