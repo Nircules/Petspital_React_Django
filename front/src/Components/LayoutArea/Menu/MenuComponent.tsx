@@ -8,24 +8,90 @@ import CategoryModel from "../../../Models/CategoryModel";
 import menuService from "./MenuFunctions";
 
 function MenuComponent(): JSX.Element {
+
     interface SpeciesAndCategories {
-        specie: SpecieModel;
+        specie: Number;
         categories: CategoryModel[];
     }
-    const [species, setSpecies] = useState<SpecieModel[]>([]);
-    const [categoriesPerSpecie, setCategories] = useState<CategoryModel[]>([])
-    const speciesDict: { [key: number]: SpeciesAndCategories } = {};
+
+    // const [species, setSpecies] = useState<SpecieModel[]>([]);
+    // const [categoriesById, setCategoriesById] = useState<CategoryModel[]>([]);
+    // const categoryList: CategoryModel[] = []
+    // const specieAndCat: SpeciesAndCategories[] = [];
+    // useEffect(() => {
+    //     menuService.fetchSpecies()
+    //         .then(speciesFromBack => (setSpecies(speciesFromBack)))
+    //         .then(data => {
+    //             console.log(data)
+    //             species.forEach(specie => {
+    //                 menuService.fetchCategories(specie.id)
+    //                     .then(catFromBack => setCategoriesById(catFromBack))
+    //                     .catch(err => alert(err.message))
+    //                 const newObject: SpeciesAndCategories = {
+    //                     specie: specie.id,
+    //                     categories: categoriesById
+    //                 }
+    //                 specieAndCat.push(newObject)
+    //             })
+    //         })
+    //         .catch(err => alert(err.message))
+    // }, []);
+
+    // species.map(specie => {
+    //     menuService.fetchCategories(specie.id)
+    //         .then(catFromBack => setCategoriesById(catFromBack))
+    //         .catch(err => alert(err.message))
+    //     const newObject: SpeciesAndCategories = {
+    //         specie: specie.id,
+    //         categories: categoriesById
+    //     }
+    //     specieAndCat.push(newObject)
+    // })
+    // console.log(specieAndCat)
+
+    const [species, setSpecies] = useState([]);
+
     useEffect(() => {
-        menuService.fetchSpecies()
-            .then(speciesFromBack => (setSpecies(speciesFromBack)))
-            .catch(err => alert(err.message))
-        
-        species.forEach(specie => {
-            menuService.fetchCategories(specie.id)
-            
-            // speciesDict[specie.id] = {specie: specie, categories: menuService.fetchCategories(specie.id)}
-        })
-        // console.log(speciesDict)
+        async function fetchData() {
+            try {
+                const response = await fetch("http://127.0.0.1:8000/species");
+                const speciesList = await response.json() as SpecieModel[];
+
+                const speciesWithCategories = await Promise.all(
+                    speciesList.map(async (specie) => {
+                        const categoriesResponse = await fetch(
+                            'http://127.0.0.1:8000/categories/' + specie.id
+                        );
+                        const categories = await categoriesResponse.json() as CategoryModel[];
+
+                        const categoriesWithSubcategories = await Promise.all(
+                            categories.map(async (category) => {
+                                const subcategoriesResponse = await fetch(
+                                    "http://127.0.0.1:8000/sub_categories/" + category.id
+                                );
+                                const subcategories = await subcategoriesResponse.json();
+
+                                return {
+                                    ...category,
+                                    subcategories,
+                                };
+                            })
+                        );
+
+                        return {
+                            ...specie,
+                            categories: categoriesWithSubcategories,
+                        };
+                    })
+                );
+                setSpecies(speciesWithCategories);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchData();
+        console.log(species[0].categories[0].su)
 
     }, []);
 
@@ -56,20 +122,14 @@ function MenuComponent(): JSX.Element {
 
                     {species.map(specie =>
                         <SubMenu label={specie.name} key={specie.id}>
-                            {categoriesPerSpecie.map(category =>
-                                <SubMenu label={category.name} key={category.id} className="SubSub">
-                                    <DropdownItem>Hi</DropdownItem>
-                                    <DropdownItem>Hi</DropdownItem>
-                                    <DropdownItem>Hi</DropdownItem>
-                                    <DropdownItem>Hi</DropdownItem>
-                                </SubMenu>)}
+                            {specie.categories.map((category: CategoryModel) => (
+                                <SubMenu label={category.name} key={category.id}>
+                                    { }
+                                </SubMenu>
+                            ))}
                         </SubMenu>)}
-                    {species.map(specie => <SubMenu label={specie.name} key={specie.id}>
-
-                    </SubMenu>)}
                 </Menu>
             </Sidebar>
-
         </div >
     );
 }

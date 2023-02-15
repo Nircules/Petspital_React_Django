@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .models import Product, Category, Sub_Category, Specie
-from .serializer import ProductSerializer, SpecieSerializer, CategorySerializer
+from .serializer import ProductSerializer, SpecieSerializer, CategorySerializer, SubCategorySerializer
 
 
 def index(req):
@@ -28,3 +28,9 @@ def categories_by_specie_id(req, specie_id):
     filtered_categories = CategorySerializer(
         Category.objects.filter(specie=specie_id), many=True).data
     return JsonResponse(filtered_categories, safe=False)
+
+
+def sub_categories_by_category_id(req, category_id):
+    filtered_sub_categories = SubCategorySerializer(
+        Sub_Category.objects.filter(category_id=category_id), many=True).data
+    return JsonResponse(filtered_sub_categories, safe=False)
