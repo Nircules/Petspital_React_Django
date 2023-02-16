@@ -3,11 +3,38 @@
     height: 100%;
 }
 
+/* The Side Bar */
+.ps-sidebar-root {
+    width: 100%;
+    font-size: 150%;
+    background: linear-gradient(90deg, rgb(255, 213, 145) 0%, rgb(255, 229, 186) 20%, rgb(255, 229, 186) 80%, rgb(255, 213, 145) 100%);
+}
+
 hr {
     border-top: 5px solid #f27ef7 !important;
 }
 
-.SubSub {
+/* Category  */
+#CategoryLabel {
     text-align: center;
-    background-color: #eecef9;
+}
+
+#SubCatLabel {
+    background-color: white;
+}
+
+/* The dropdown box of each line */
+.ps-submenu-content {
+    border: 2px solid #f27ef7;
+}
+
+.ps-menuitem-root {
+    color: #d359ff;
+}
+
+/* Each line in the side bar */
+.ps-menu-button:hover {
+    background-color: #008efe !important;
+    color: white !important;
+    font-weight: bold !important;
 }

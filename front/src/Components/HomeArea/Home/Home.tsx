@@ -7,8 +7,7 @@ function Home(): JSX.Element {
 
     return (
         <div className="Home">
-            {/* <Clock /> */}
-            <Sales/>
+            <h1>Petspital Home Page!</h1>
         </div>
     );
 }

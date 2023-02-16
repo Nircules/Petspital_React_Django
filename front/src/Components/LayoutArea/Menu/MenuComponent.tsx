@@ -74,40 +74,25 @@ function MenuComponent(): JSX.Element {
     return (
         <div className="MenuComponent">
             <hr />
-            <Sidebar className="Sidebar" style={{
-                width: "100%", fontSize: "150%",
-                background: "linear-gradient(90deg, rgba(255,213,145,1) 0%, rgba(255,229,186,1) 20%, rgba(255,229,186,1) 80%, rgba(255,213,145,1) 100%)",
-                zIndex: 1,
-            }}>
-                <Menu menuItemStyles={{
-                    button: ({ active, disabled }) => {
-                        return {
-                            color: disabled ? '#f5d9ff' : '#d359ff',
-                            backgroundColor: active ? '#eecef9' : undefined,
-                            ":hover": {
-                                backgroundColor: "#008efe !important",
-                                color: "white !important",
-                                fontWeight: "bold !important"
-                            }
-                        };
-                    },
-                }}>
+            <Sidebar>
+                <Menu>
                     <MenuItem component={<NavLink to="/" />} > Home </MenuItem>
                     <MenuItem component={<NavLink to="/products" />}> All Products </MenuItem>
                     <hr />
-
                     {species.map(specie => {
                         if (specie.categories.length > 0) {
-                            return (<SubMenu label={specie.name} key={specie.id}>
+                            return (<SubMenu label={specie.name} key={specie.id} >
                                 {specie.categories.map((category: CategoryModel) => (
-                                    <NavLink to={"/category_products/" + category.id} key={category.id}>
-                                        <SubMenu label={category.name}>
-                                            {category.subcategories.map(sub_cat => (
-                                                <MenuItem component={<NavLink to={"/sub_category_products/" + sub_cat.id} />}
-                                                    key={sub_cat.id}>
-                                                    {sub_cat.name}</MenuItem>
-                                            ))}
-                                        </SubMenu></NavLink>
+                                    <SubMenu label={category.name} key={category.id} id='CategoryLabel'>
+                                        <MenuItem component={<NavLink to={"/category_products/" + category.id} />} id='CategoryLabel'>
+                                            All
+                                        </MenuItem>
+                                        {category.subcategories.map(sub_cat => (
+                                            <MenuItem component={<NavLink to={"/sub_category_products/" + sub_cat.id} />}
+                                                key={sub_cat.id} id='SubCatLabel'>
+                                                {sub_cat.name}</MenuItem>
+                                        ))}
+                                    </SubMenu>
                                 ))}
                             </SubMenu>)
                         }

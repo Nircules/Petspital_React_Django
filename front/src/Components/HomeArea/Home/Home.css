@@ -1,3 +1,4 @@
-.Home {
-	
+.Home>h1 {
+    text-decoration: underline;
+    font-weight: bold;
 }
