@@ -3,10 +3,10 @@ import { NavLink, useParams } from "react-router-dom";
 import ProductModel from "../../../Models/ProductModel";
 import productsService from "../../../Services/ProductsService";
 import ProductCard from "../ProductCard/ProductCard";
-import "./CategoryProductsList.css";
+import "./SubCategoryProductsList.css";
 import Loading from "../../SharedArea/Loading/Loading";
 
-function CategoryProductsList(): JSX.Element {
+function SubCategoryProductsList(): JSX.Element {
     const params = useParams();
     const sub_cat_id = parseInt(params.subCategoryId)
     const [products, setProducts] = useState<ProductModel[]>([]);
@@ -28,4 +28,4 @@ function CategoryProductsList(): JSX.Element {
     );
 }
 
-export default CategoryProductsList;
+export default SubCategoryProductsList;

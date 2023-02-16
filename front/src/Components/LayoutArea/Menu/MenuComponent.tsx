@@ -6,6 +6,7 @@ import SpecieModel from "../../../Models/SpecieModel";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import CategoryModel from "../../../Models/CategoryModel";
 import menuService from "./MenuFunctions";
+import SubCategoryModel from "../../../Models/SubCategoryModel";
 
 function MenuComponent(): JSX.Element {
 
@@ -48,9 +49,13 @@ function MenuComponent(): JSX.Element {
     //     specieAndCat.push(newObject)
     // })
     // console.log(specieAndCat)
-
+    interface CategoryModel {
+        id: number;
+        name: string;
+        specieId: number;
+        subcategories: SubCategoryModel[];
+    }
     const [species, setSpecies] = useState([]);
-
     useEffect(() => {
         async function fetchData() {
             try {
@@ -69,11 +74,25 @@ function MenuComponent(): JSX.Element {
                                 const subcategoriesResponse = await fetch(
                                     "http://127.0.0.1:8000/sub_categories/" + category.id
                                 );
-                                const subcategories = await subcategoriesResponse.json();
+                                const subcategories = await subcategoriesResponse.json() as SubCategoryModel[];
+
+                                const subcategoriesWithSubsubcategories = await Promise.all(
+                                    subcategories.map(async (subcategory) => {
+                                        const subsubcategoriesResponse = await fetch(
+                                            "http://127.0.0.1:8000/specific_sub_cat/" + subcategory.id
+                                        );
+                                        const subsubcategories = await subsubcategoriesResponse.json();
+
+                                        return {
+                                            ...subcategory,
+                                            subsubcategories,
+                                        };
+                                    })
+                                );
 
                                 return {
                                     ...category,
-                                    subcategories,
+                                    subcategories: subcategoriesWithSubsubcategories,
                                 };
                             })
                         );
@@ -84,6 +103,7 @@ function MenuComponent(): JSX.Element {
                         };
                     })
                 );
+
                 setSpecies(speciesWithCategories);
             } catch (error) {
                 console.error(error);
@@ -91,9 +111,50 @@ function MenuComponent(): JSX.Element {
         }
 
         fetchData();
-        console.log(species[0].categories[0].su)
+        console.log(species)
 
     }, []);
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         try {
+    //             const response = await fetch("http://127.0.0.1:8000/species");
+    //             const speciesList = await response.json() as SpecieModel[];
+
+    //             const speciesWithCategories = await Promise.all(
+    //                 speciesList.map(async (specie) => {
+    //                     const categoriesResponse = await fetch(
+    //                         'http://127.0.0.1:8000/categories/' + specie.id
+    //                     );
+    //                     const categories = await categoriesResponse.json() as CategoryModel[];
+
+    //                     const categoriesWithSubcategories = await Promise.all(
+    //                         categories.map(async (category) => {
+    //                             const subcategoriesResponse = await fetch(
+    //                                 "http://127.0.0.1:8000/sub_categories/" + category.id
+    //                             );
+    //                             const subcategories = await subcategoriesResponse.json();
+
+    //                             return {
+    //                                 ...category,
+    //                                 subcategories,
+    //                             };
+    //                         })
+    //                     );
+
+    //                     return {
+    //                         ...specie,
+    //                         categories: categoriesWithSubcategories,
+    //                     };
+    //                 })
+    //             );
+    //             setSpecies(speciesWithCategories);
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     }
+
+    //     fetchData();
+    // }, []);
 
     return (
         <div className="MenuComponent">
@@ -120,14 +181,21 @@ function MenuComponent(): JSX.Element {
                     <MenuItem component={<NavLink to="/products" />}> All Products </MenuItem>
                     <hr />
 
-                    {species.map(specie =>
-                        <SubMenu label={specie.name} key={specie.id}>
-                            {specie.categories.map((category: CategoryModel) => (
-                                <SubMenu label={category.name} key={category.id}>
-                                    { }
-                                </SubMenu>
-                            ))}
-                        </SubMenu>)}
+                    {species.map(specie => {
+                        if (specie.categories.length > 0) {
+                            return (<SubMenu label={specie.name} key={specie.id}>
+                                {specie.categories.map((category: CategoryModel) => (
+                                    <SubMenu label={category.name} key={category.id}>
+                                        {category.subcategories.map(sub_cat => (
+                                            <MenuItem component={<NavLink to={"/sub_category/" + sub_cat.id} />}>
+                                                {sub_cat.name}</MenuItem>
+                                        ))}
+                                    </SubMenu>
+                                ))}
+                            </SubMenu>)
+                        }
+                    })
+                    }
                 </Menu>
             </Sidebar>
         </div >
