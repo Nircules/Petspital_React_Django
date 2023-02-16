@@ -74,7 +74,7 @@ function MenuComponent(): JSX.Element {
     return (
         <div className="MenuComponent">
             <hr />
-            <Sidebar>
+            <Sidebar style={{ width: "100%" }}>
                 <Menu>
                     <MenuItem component={<NavLink to="/" />} > Home </MenuItem>
                     <MenuItem component={<NavLink to="/products" />}> All Products </MenuItem>
