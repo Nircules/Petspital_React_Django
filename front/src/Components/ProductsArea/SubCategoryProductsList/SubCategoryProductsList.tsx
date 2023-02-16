@@ -19,11 +19,17 @@ function SubCategoryProductsList(): JSX.Element {
 
     return (
         <div className="ProductsList">
-            {products.length === 0 && <Loading />}
-            <NavLink to="/products/new">➕</NavLink>
-            <div className="row row-cols-1 row-cols-md-3 g-4">
-                {products.map(p => <ProductCard key={p.id} product={p} />)}
-            </div>
+            {products.length > 0 ? (
+                <div>
+                    <div className="row row-cols-1 row-cols-md-3 g-4">
+                        {products.map(product => <ProductCard key={product.id} product={product} />)}
+                    </div>
+                </div>
+            ) : (
+                <div>
+                    No Products here.
+                </div>
+            )}
         </div>
     );
 }

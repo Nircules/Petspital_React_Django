@@ -8,7 +8,8 @@ import NotFound404 from "../NotFound404/NotFound404";
 import Register from "../../AuthArea/Register/Register";
 import Login from "../../AuthArea/Login/Login";
 import Logout from "../../AuthArea/Logout/Logout";
-import SubCategoryProductsList from "../../ProductsArea/CategoryProductsList/SubCategoryProductsList";
+import SubCategoryProductsList from "../../ProductsArea/SubCategoryProductsList/SubCategoryProductsList";
+import CategoryProductsList from "../../ProductsArea/CategoryProductsList/CategoryProductsList";
 
 
 function Routing(): JSX.Element {
@@ -18,7 +19,8 @@ function Routing(): JSX.Element {
                 <Route path="/" element={<Navigate to="/home" />}></Route>
                 <Route path="/home" element={<Home />}></Route>
                 <Route path="/products" element={<ProductsList />}></Route>
-                <Route path="/sub_category/:subCategoryId" element={<SubCategoryProductsList />}></Route>
+                <Route path="/sub_category_products/:subCategoryId" element={<SubCategoryProductsList />}></Route>
+                <Route path="/category_products/:CategoryId" element={<CategoryProductsList />}></Route>
                 <Route path="/products/details/:prodId" element={<ProductDetails />}></Route>
                 <Route path="/products/new" element={<AddProduct />}></Route>
                 <Route path="/products/edit/:prodToEdit" element={<EditProduct />}></Route>

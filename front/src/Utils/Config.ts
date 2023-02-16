@@ -5,7 +5,8 @@ class Config {
 
     public productsUrl = "http://127.0.0.1:8000/products";
     public productImagesUrl = "http://127.0.0.1:8000";
-    public subCategoriesUrl = "http://127.0.0.1:8000/sub_category/";
+    public subCategoriesUrl = "http://127.0.0.1:8000/sub_category_products/";
+    public CategoriesUrl = "http://127.0.0.1:8000/category_products/";
     public speciesUrl = "http://127.0.0.1:8000/species/"
 
 

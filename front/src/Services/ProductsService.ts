@@ -21,6 +21,14 @@ class ProductsService {
         return products;
     }
 
+    public async CategoryProducts(id: number): Promise<ProductModel[]> {
+        let products = productsStore.getState().products;
+        const response = await axios.get<ProductModel[]>(config.CategoriesUrl + id);
+        products = response.data
+        productsStore.dispatch({ type: ProductsActionTypes.FetchCategoryProducts, payload: products })
+        return products;
+    }
+
 
     public async getOneProductById(id: number): Promise<ProductModel> {
         let products = productsStore.getState().products;

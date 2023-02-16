@@ -3,52 +3,9 @@ import "./MenuComponent.css";
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { useEffect, useState } from "react";
 import SpecieModel from "../../../Models/SpecieModel";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
-import CategoryModel from "../../../Models/CategoryModel";
-import menuService from "./MenuFunctions";
 import SubCategoryModel from "../../../Models/SubCategoryModel";
 
 function MenuComponent(): JSX.Element {
-
-    interface SpeciesAndCategories {
-        specie: Number;
-        categories: CategoryModel[];
-    }
-
-    // const [species, setSpecies] = useState<SpecieModel[]>([]);
-    // const [categoriesById, setCategoriesById] = useState<CategoryModel[]>([]);
-    // const categoryList: CategoryModel[] = []
-    // const specieAndCat: SpeciesAndCategories[] = [];
-    // useEffect(() => {
-    //     menuService.fetchSpecies()
-    //         .then(speciesFromBack => (setSpecies(speciesFromBack)))
-    //         .then(data => {
-    //             console.log(data)
-    //             species.forEach(specie => {
-    //                 menuService.fetchCategories(specie.id)
-    //                     .then(catFromBack => setCategoriesById(catFromBack))
-    //                     .catch(err => alert(err.message))
-    //                 const newObject: SpeciesAndCategories = {
-    //                     specie: specie.id,
-    //                     categories: categoriesById
-    //                 }
-    //                 specieAndCat.push(newObject)
-    //             })
-    //         })
-    //         .catch(err => alert(err.message))
-    // }, []);
-
-    // species.map(specie => {
-    //     menuService.fetchCategories(specie.id)
-    //         .then(catFromBack => setCategoriesById(catFromBack))
-    //         .catch(err => alert(err.message))
-    //     const newObject: SpeciesAndCategories = {
-    //         specie: specie.id,
-    //         categories: categoriesById
-    //     }
-    //     specieAndCat.push(newObject)
-    // })
-    // console.log(specieAndCat)
     interface CategoryModel {
         id: number;
         name: string;
@@ -65,14 +22,14 @@ function MenuComponent(): JSX.Element {
                 const speciesWithCategories = await Promise.all(
                     speciesList.map(async (specie) => {
                         const categoriesResponse = await fetch(
-                            'http://127.0.0.1:8000/categories/' + specie.id
+                            'http://127.0.0.1:8000/categories_by_specie/' + specie.id
                         );
                         const categories = await categoriesResponse.json() as CategoryModel[];
 
                         const categoriesWithSubcategories = await Promise.all(
                             categories.map(async (category) => {
                                 const subcategoriesResponse = await fetch(
-                                    "http://127.0.0.1:8000/sub_categories/" + category.id
+                                    "http://127.0.0.1:8000/sub_categories_by_category/" + category.id
                                 );
                                 const subcategories = await subcategoriesResponse.json() as SubCategoryModel[];
 
@@ -111,50 +68,8 @@ function MenuComponent(): JSX.Element {
         }
 
         fetchData();
-        console.log(species)
 
     }, []);
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         try {
-    //             const response = await fetch("http://127.0.0.1:8000/species");
-    //             const speciesList = await response.json() as SpecieModel[];
-
-    //             const speciesWithCategories = await Promise.all(
-    //                 speciesList.map(async (specie) => {
-    //                     const categoriesResponse = await fetch(
-    //                         'http://127.0.0.1:8000/categories/' + specie.id
-    //                     );
-    //                     const categories = await categoriesResponse.json() as CategoryModel[];
-
-    //                     const categoriesWithSubcategories = await Promise.all(
-    //                         categories.map(async (category) => {
-    //                             const subcategoriesResponse = await fetch(
-    //                                 "http://127.0.0.1:8000/sub_categories/" + category.id
-    //                             );
-    //                             const subcategories = await subcategoriesResponse.json();
-
-    //                             return {
-    //                                 ...category,
-    //                                 subcategories,
-    //                             };
-    //                         })
-    //                     );
-
-    //                     return {
-    //                         ...specie,
-    //                         categories: categoriesWithSubcategories,
-    //                     };
-    //                 })
-    //             );
-    //             setSpecies(speciesWithCategories);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     }
-
-    //     fetchData();
-    // }, []);
 
     return (
         <div className="MenuComponent">
@@ -185,17 +100,18 @@ function MenuComponent(): JSX.Element {
                         if (specie.categories.length > 0) {
                             return (<SubMenu label={specie.name} key={specie.id}>
                                 {specie.categories.map((category: CategoryModel) => (
-                                    <SubMenu label={category.name} key={category.id}>
-                                        {category.subcategories.map(sub_cat => (
-                                            <MenuItem component={<NavLink to={"/sub_category/" + sub_cat.id} />}>
-                                                {sub_cat.name}</MenuItem>
-                                        ))}
-                                    </SubMenu>
+                                    <NavLink to={"/category_products/" + category.id} key={category.id}>
+                                        <SubMenu label={category.name}>
+                                            {category.subcategories.map(sub_cat => (
+                                                <MenuItem component={<NavLink to={"/sub_category_products/" + sub_cat.id} />}
+                                                    key={sub_cat.id}>
+                                                    {sub_cat.name}</MenuItem>
+                                            ))}
+                                        </SubMenu></NavLink>
                                 ))}
                             </SubMenu>)
                         }
-                    })
-                    }
+                    })}
                 </Menu>
             </Sidebar>
         </div >
