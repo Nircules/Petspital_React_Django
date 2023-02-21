@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .models import Product, Category, Sub_Category, Specie
 from .serializer import ProductSerializer, SpecieSerializer, CategorySerializer, SubCategorySerializer
+from django.db.models import Q
 
 
 def index(req):
@@ -46,3 +47,17 @@ def sub_categories_by_category_id(req, category_id):
     filtered_sub_categories = SubCategorySerializer(
         Sub_Category.objects.filter(category_id=category_id), many=True).data
     return JsonResponse(filtered_sub_categories, safe=False)
+
+
+def search(request):
+    search_term = request.GET.get('search_value', '')
+    products = ProductSerializer(Product.objects.filter(
+        name__icontains=search_term), many=True).data
+    return JsonResponse(products, safe=False)
+
+
+def suggest(request):
+    query = request.GET.get('query', '')
+    suggestions = ProductSerializer(Product.objects.filter(
+        Q(name__icontains=query) | Q(description__icontains=query))[:10], many=True).data
+    return JsonResponse(suggestions, safe=False)

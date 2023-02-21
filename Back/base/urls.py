@@ -13,4 +13,6 @@ urlpatterns = [
     path('specific_sub_cat/<int:sub_category_id>', views.sub_category),
     path('sub_categories_by_category/<int:category_id>',
          views.sub_categories_by_category_id),
+    path('products/search', views.search),
+    path('products/search_suggestions', views.suggest),
 ]

@@ -18,7 +18,6 @@ function MenuComponent(): JSX.Element {
             try {
                 const response = await fetch("http://127.0.0.1:8000/species");
                 const speciesList = await response.json() as SpecieModel[];
-
                 const speciesWithCategories = await Promise.all(
                     speciesList.map(async (specie) => {
                         const categoriesResponse = await fetch(
@@ -46,21 +45,18 @@ function MenuComponent(): JSX.Element {
                                         };
                                     })
                                 );
-
                                 return {
                                     ...category,
                                     subcategories: subcategoriesWithSubsubcategories,
                                 };
                             })
                         );
-
                         return {
                             ...specie,
                             categories: categoriesWithSubcategories,
                         };
                     })
                 );
-
                 setSpecies(speciesWithCategories);
             } catch (error) {
                 console.error(error);
@@ -84,7 +80,7 @@ function MenuComponent(): JSX.Element {
                             return (<SubMenu label={specie.name} key={specie.id} >
                                 {specie.categories.map((category: CategoryModel) => (
                                     <SubMenu label={category.name} key={category.id} id='CategoryLabel'>
-                                        <MenuItem component={<NavLink to={"/category_products/" + category.id} />} id='CategoryLabel'>
+                                        <MenuItem component={<NavLink to={"/category_products/" + category.id} />} id='SubCatLabel'>
                                             All
                                         </MenuItem>
                                         {category.subcategories.map(sub_cat => (
