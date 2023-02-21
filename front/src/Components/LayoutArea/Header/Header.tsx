@@ -1,6 +1,5 @@
 import "./Header.css";
 import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
-import SearchBar from "../../SharedArea/SearchBar/SearchBar";
 
 
 function Header(): JSX.Element {
