@@ -10,6 +10,7 @@ import Login from "../../AuthArea/Login/Login";
 import Logout from "../../AuthArea/Logout/Logout";
 import SubCategoryProductsList from "../../ProductsArea/SubCategoryProductsList/SubCategoryProductsList";
 import CategoryProductsList from "../../ProductsArea/CategoryProductsList/CategoryProductsList";
+import SearchResults from "../../SharedArea/SearchBar/SearchResults";
 
 
 function Routing(): JSX.Element {
@@ -19,6 +20,7 @@ function Routing(): JSX.Element {
                 <Route path="/" element={<Navigate to="/home" />}></Route>
                 <Route path="/home" element={<Home />}></Route>
                 <Route path="/products" element={<ProductsList />}></Route>
+                <Route path="/search_results" element={<SearchResults />}></Route>
                 <Route path="/sub_category_products/:subCategoryId" element={<SubCategoryProductsList />}></Route>
                 <Route path="/category_products/:CategoryId" element={<CategoryProductsList />}></Route>
                 <Route path="/products/details/:prodId" element={<ProductDetails />}></Route>

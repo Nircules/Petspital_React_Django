@@ -1,24 +1,26 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
 
 function SearchBar(): JSX.Element {
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
     const [preOptions, setPreOptions] = useState([]);
+    const navigate = useNavigate()
 
     function handleSearchTermChange(event: React.ChangeEvent<HTMLInputElement>) {
         setSearchTerm(event.target.value);
         fetch(`http://127.0.0.1:8000/products/search_suggestions?query=${event.target.value}`)
             .then(response => response.json())
             .then(data => setPreOptions(data));
-        console.log(preOptions)
     }
 
-    function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        fetch(`http://127.0.0.1:8000/products/search?search_value=${searchTerm}`)
+        await fetch(`http://127.0.0.1:8000/products/search?search_value=${searchTerm}`)
             .then(response => response.json())
-            .then(data => setSearchResults(data));
+            .then(data => {
+                navigate('/search_results', { state: { searchResults: data } });
+              });
     }
 
     return (
@@ -36,11 +38,6 @@ function SearchBar(): JSX.Element {
                 ))}
             </datalist>
             <button type="submit">Search</button>
-            <ul>
-                {searchResults.map(result => (
-                    <li key={result.id}>{result.name}</li>
-                ))}
-            </ul>
         </form>
     );
 }
