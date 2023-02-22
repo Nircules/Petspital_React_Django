@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import "./SearchBar.css";
-import SearchBarContext from "./SearchBarContext";
 
 function SearchBar(): JSX.Element {
     const [searchTerm, setSearchTerm] = useState('');
@@ -12,6 +11,7 @@ function SearchBar(): JSX.Element {
         fetch(`http://127.0.0.1:8000/products/search_suggestions?query=${event.target.value}`)
             .then(response => response.json())
             .then(data => setPreOptions(data));
+        console.log(preOptions)
     }
 
     function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
