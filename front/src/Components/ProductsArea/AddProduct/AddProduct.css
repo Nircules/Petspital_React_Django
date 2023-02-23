@@ -19,3 +19,7 @@
     /* position: absolute; */
     /* Will stay exactly where it is. */
 }
+
+.col>label{
+    margin-left: 10px;
+}

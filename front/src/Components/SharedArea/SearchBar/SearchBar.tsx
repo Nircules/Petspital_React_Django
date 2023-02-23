@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
 
@@ -19,8 +19,9 @@ function SearchBar(): JSX.Element {
         await fetch(`http://127.0.0.1:8000/products/search?search_value=${searchTerm}`)
             .then(response => response.json())
             .then(data => {
+                setSearchTerm('');
                 navigate('/search_results', { state: { searchResults: data } });
-              });
+            });
     }
 
     return (

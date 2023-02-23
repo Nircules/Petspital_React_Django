@@ -42,13 +42,17 @@ class ProductsService {
 
     public async addProduct(product: ProductModel): Promise<ProductModel> {
         const formData = new FormData();
+        const now = new Date();
         formData.append("name", product.name)
+        formData.append("description", product.description)
         formData.append("price", product.price.toString())
         formData.append("stock", product.stock.toString())
         formData.append("image", product.image.item(0))
+        formData.append("createdTime", now.getDate.toString())
+        formData.append("sub_category", product.sub_category.toString())
+
         const response = await axios.post<ProductModel>(config.productsUrl, formData);
         const addedProduct = response.data;
-
         productsStore.dispatch({ type: ProductsActionTypes.AddProduct, payload: addedProduct })
         return addedProduct;
     }
