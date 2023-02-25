@@ -20,6 +20,7 @@ function AddProduct(): JSX.Element {
     }, [])
 
     async function send(product: ProductModel) {
+        console.log('addedProduct');
         try {
             const addedProduct = await productsService.addProduct(product);
             navigate("/products");
@@ -86,13 +87,12 @@ function AddProduct(): JSX.Element {
                 {/* Product Sub Category */}
                 <div className="form-floating mb-3">
                     <input type="number" className="form-control" id="exampleFormControlTextarea1" {...register("sub_category", {
-                        required: { value: true, message: "Missing Description" },
-                        min: { value: 3, message: "Description too short" }
+                        required: { value: true, message: "Missing Sub Category" }
                     })} />
-                    <span>{formState.errors.description?.message}</span>
+                    <span>{formState.errors.sub_category?.message}</span>
                     <label>Sub Category</label>
                 </div>
-                <button className="btn btn-primary">Add</button>
+                <button className="btn btn-primary" type="submit">Add</button>
             </form>
         </div>
     );

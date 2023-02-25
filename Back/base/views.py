@@ -1,17 +1,22 @@
-from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from .models import Product, Category, Sub_Category, Specie
 from .serializer import ProductSerializer, SpecieSerializer, CategorySerializer, SubCategorySerializer
 from django.db.models import Q
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 def index(req):
     return JsonResponse('hello', safe=False)
 
 
-def my_products(req):
-    all_products = ProductSerializer(Product.objects.all(), many=True).data
-    return JsonResponse(all_products, safe=False)
+@api_view(['GET', 'POST'])
+def my_products(request):
+    if request.method == "GET":
+        all_products = ProductSerializer(Product.objects.all(), many=True).data
+        return JsonResponse(all_products, safe=False)
+    elif request.method == "POST":
+        request_data = request.get_json()
 
 
 def species(req):

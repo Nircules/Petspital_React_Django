@@ -50,9 +50,9 @@ class ProductsService {
         formData.append("image", product.image.item(0))
         formData.append("createdTime", now.getDate.toString())
         formData.append("sub_category", product.sub_category.toString())
-
         const response = await axios.post<ProductModel>(config.productsUrl, formData);
         const addedProduct = response.data;
+
         productsStore.dispatch({ type: ProductsActionTypes.AddProduct, payload: addedProduct })
         return addedProduct;
     }
