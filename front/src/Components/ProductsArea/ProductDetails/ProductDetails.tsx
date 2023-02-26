@@ -12,7 +12,7 @@ function ProductDetails(): JSX.Element {
     useEffect(() => {
         const prodId = +params.prodId;
         productsService.getOneProductById(prodId)
-            .then(p => { setProduct(p); console.log(p) })
+            .then(p => setProduct(p))
             .catch(() => navigate("/products"))
     }, [])
 
