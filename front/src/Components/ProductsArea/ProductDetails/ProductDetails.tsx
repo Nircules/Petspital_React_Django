@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
-import { Navigate, NavLink, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import ProductModel from "../../../Models/ProductModel";
 import productsService from "../../../Services/ProductsService";
 import config from "../../../Utils/Config";
 import "./ProductDetails.css";
 
 function ProductDetails(): JSX.Element {
-
     const [product, setProduct] = useState<ProductModel>();
     const params = useParams();
     const navigate = useNavigate();
     useEffect(() => {
         const prodId = +params.prodId;
         productsService.getOneProductById(prodId)
-            .then(p => setProduct(p))
+            .then(p => { setProduct(p); console.log(p) })
             .catch(() => navigate("/products"))
     }, [])
-
 
     function deleteProduct() {
         productsService.deleteProduct(product.id)
@@ -26,7 +24,6 @@ function ProductDetails(): JSX.Element {
             })
             .catch(err => alert(err.message))
     }
-
 
     return (
         <div className="ProductDetails Box">

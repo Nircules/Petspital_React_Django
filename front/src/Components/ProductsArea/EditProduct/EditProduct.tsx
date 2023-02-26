@@ -14,17 +14,18 @@ function EditProduct(): JSX.Element {
     const { register, handleSubmit, formState, setValue } = useForm<ProductModel>();
 
     useEffect(() => {
-        const prodToEditId = +params.prodToEdit; //Get ID From Route
-
-        productsService.getOneProductById(prodToEditId) //Get Product to edit from service
+        const prodToEditId = +params.prodToEdit;
+        productsService.getOneProductById(prodToEditId)
             .then(prodToEdit => {
                 setProduct(prodToEdit);
-                setValue("id", prodToEdit.id); //set form Product
+                setValue("id", prodToEdit.id);
                 setValue("name", prodToEdit.name);
+                setValue("description", prodToEdit.description);
                 setValue("price", prodToEdit.price);
                 setValue("stock", prodToEdit.stock);
+                setValue("sub_category", prodToEdit.sub_category);
             })
-            .catch(err => alert(err.message)) // show message if something went wrong
+            .catch(err => alert(err.message))
     }, [])
 
 
@@ -39,6 +40,7 @@ function EditProduct(): JSX.Element {
 
             <h2>Edit Product</h2>
             <form onSubmit={handleSubmit(send)}>
+                {/* Product Name */}
                 <div className="form-floating mb-3">
                     <input type="text" className="form-control" id="floatingInput" {...register("name", {
                         required: { value: true, message: "Missing name" },
@@ -49,29 +51,52 @@ function EditProduct(): JSX.Element {
                     <label>Name</label>
                 </div>
 
+                {/* Product Description */}
                 <div className="form-floating mb-3">
-                    <input type="number" className="form-control" id="floatingInput" {...register("price", {
-                        required: { value: true, message: "Missing price" },
-                        min: { value: 1, message: "price cant be below 1" },
-                        max: { value: 200, message: "price cant be over 200" }
+                    <input type="text" className="form-control" id="exampleFormControlTextarea1" {...register("description", {
+                        required: { value: true, message: "Missing Description" },
+                        min: { value: 3, message: "Description too short" }
                     })} />
-                    <span>{formState.errors.price?.message}</span>
-                    <label>Price</label>
+                    <span>{formState.errors.description?.message}</span>
+                    <label>Description</label>
                 </div>
 
-                <div className="form-floating mb-3">
-                    <input type="number" className="form-control" id="floatingInput" {...register("stock", {
-                        required: { value: true, message: "Missing stock" },
-                        min: { value: 1, message: "stock cant be below 1" },
-                        max: { value: 100, message: "stock cant be over 100" }
-                    })} />
-                    <span>{formState.errors.stock?.message}</span>
-                    <label>stock</label>
+                <div className="row">
+                    {/* Product Price */}
+                    <div className="form-floating mb-3 col">
+                        <input type="number" className="form-control" id="floatingInput" {...register("price", {
+                            required: { value: true, message: "Missing price" },
+                            min: { value: 1, message: "price cant be below 1" },
+                            max: { value: 5000, message: "price cant be over 5000" }
+                        })} />
+                        <span>{formState.errors.price?.message}</span>
+                        <label>Price</label>
+                    </div>
+                    {/* Product Stock */}
+                    <div className="form-floating mb-3 col">
+                        <input type="number" className="form-control" id="floatingInput" {...register("stock", {
+                            required: { value: true, message: "Missing stock" },
+                            min: { value: 1, message: "stock cant be below 1" },
+                            max: { value: 100, message: "stock cant be over 100" }
+                        })} />
+                        <span>{formState.errors.stock?.message}</span>
+                        <label>stock</label>
+                    </div>
                 </div>
+
+                {/* Product Image */}
                 <img src={config.productImagesUrl + product?.image} />
-
                 <div className="input-group mb-3">
                     <input type="file" className="form-control" id="inputGroupFile01" accept="image/*"  {...register("image")} />
+                </div>
+
+                {/* Product Sub Category */}
+                <div className="form-floating mb-3">
+                    <input type="number" className="form-control" id="exampleFormControlTextarea1" {...register("sub_category", {
+                        required: { value: true, message: "Missing Sub Category" }
+                    })} />
+                    <span>{formState.errors.sub_category?.message}</span>
+                    <label>Sub Category</label>
                 </div>
                 <button className="btn btn-primary">Edit</button>
             </form>

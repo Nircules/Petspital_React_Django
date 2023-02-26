@@ -20,7 +20,6 @@ function AddProduct(): JSX.Element {
     }, [])
 
     async function send(product: ProductModel) {
-        console.log('addedProduct');
         try {
             const addedProduct = await productsService.addProduct(product);
             navigate("/products");

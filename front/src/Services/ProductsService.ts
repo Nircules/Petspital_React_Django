@@ -6,63 +6,54 @@ import { ProductsActionTypes, productsStore } from "../Redux/ProductsState";
 class ProductsService {
 
     public async fetchAllProducts(): Promise<ProductModel[]> {
-        let products = productsStore.getState().products;
         const response = await axios.get<ProductModel[]>(config.productsUrl);
-        products = response.data
+        const products = response.data
         productsStore.dispatch({ type: ProductsActionTypes.FetchAllProducts, payload: products })
         return products;
     }
 
     public async subCategoryProducts(id: number): Promise<ProductModel[]> {
-        let products = productsStore.getState().products;
         const response = await axios.get<ProductModel[]>(config.subCategoriesUrl + id);
-        products = response.data
+        const products = response.data
         productsStore.dispatch({ type: ProductsActionTypes.FetchCategoryProducts, payload: products })
         return products;
     }
 
     public async CategoryProducts(id: number): Promise<ProductModel[]> {
-        let products = productsStore.getState().products;
         const response = await axios.get<ProductModel[]>(config.CategoriesUrl + id);
-        products = response.data
+        const products = response.data
         productsStore.dispatch({ type: ProductsActionTypes.FetchCategoryProducts, payload: products })
         return products;
     }
 
 
     public async getOneProductById(id: number): Promise<ProductModel> {
-        let products = productsStore.getState().products;
-        let product = products.find(p => p.id === id);
-        if (!product) {
-            const response = await axios.get<ProductModel>(config.productsUrl + id);
-            product = response.data
-        }
+        const response = await axios.get<ProductModel>(config.productsUrl + id);
+        const product = response.data
         return product;
     }
 
     public async addProduct(product: ProductModel): Promise<ProductModel> {
         const formData = new FormData();
-        const now = new Date();
         formData.append("name", product.name)
         formData.append("description", product.description)
         formData.append("price", product.price.toString())
         formData.append("stock", product.stock.toString())
         formData.append("image", product.image.item(0))
-        formData.append("createdTime", now.getDate.toString())
         formData.append("sub_category", product.sub_category.toString())
         const response = await axios.post<ProductModel>(config.productsUrl, formData);
         const addedProduct = response.data;
-
         productsStore.dispatch({ type: ProductsActionTypes.AddProduct, payload: addedProduct })
         return addedProduct;
     }
 
     public async editProduct(product: ProductModel): Promise<ProductModel> {
         const formData = new FormData();
-
         formData.append("name", product.name)
+        formData.append("description", product.description)
         formData.append("price", product.price.toString())
         formData.append("stock", product.stock.toString())
+        formData.append("sub_category", product.sub_category.toString())
         if (product.image) {
             formData.append("image", product.image.item(0))
         }

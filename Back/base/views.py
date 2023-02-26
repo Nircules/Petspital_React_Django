@@ -4,19 +4,52 @@ from .serializer import ProductSerializer, SpecieSerializer, CategorySerializer,
 from django.db.models import Q
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from datetime import datetime
 
 
 def index(req):
     return JsonResponse('hello', safe=False)
 
 
-@api_view(['GET', 'POST'])
-def my_products(request):
+@api_view(['GET', 'POST', 'DELETE', 'PUT'])
+def my_products(request, product_id=-1):
+    all_products = ProductSerializer(Product.objects.all(), many=True).data
     if request.method == "GET":
-        all_products = ProductSerializer(Product.objects.all(), many=True).data
-        return JsonResponse(all_products, safe=False)
+        if product_id > -1:
+            single_product = ProductSerializer(
+                Product.objects.get(id=product_id)).data
+            return JsonResponse(single_product, safe=False)
+        else:
+            return JsonResponse(all_products, safe=False)
     elif request.method == "POST":
-        request_data = request.get_json()
+        product_name = request.data['name']
+        description = request.data['description']
+        price = request.data['price']
+        stock = request.data['stock']
+        image = request.data['image']
+        created_time = datetime.now()
+        sub_category = Sub_Category.objects.get(
+            id=request.data['sub_category'])
+        Product.objects.create(name=product_name, description=description,
+                               price=price, stock=stock, image=image, createdTime=created_time, sub_category=sub_category)
+        return JsonResponse(all_products, safe=False)
+    elif request.method == "DELETE":
+        product = Product.objects.get(id=product_id)
+        product.delete()
+        return JsonResponse(all_products, safe=False)
+    elif request.method == "PUT":
+        product = Product.objects.get(id=product_id)
+        product.name = request.data['name']
+        product.description = request.data['description']
+        product.price = request.data['price']
+        product.stock = request.data['stock']
+        if (request.data['image'] != 'null'):
+            print(request.data['image'])
+            product.image = request.data['image']
+        product.sub_category = Sub_Category.objects.get(
+            id=request.data['sub_category'])
+        product.save()
+        return JsonResponse(all_products, safe=False)
 
 
 def species(req):
