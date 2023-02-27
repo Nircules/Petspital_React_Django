@@ -39,18 +39,28 @@ function AddProduct(): JSX.Element {
                 <div className="form-floating mb-3">
                     <input type="text" className="form-control" id="floatingInput" {...register("name", {
                         required: { value: true, message: "Missing Name" },
-                        min: { value: 3, message: "Name too short" },
-                        max: { value: 25, message: "Name too long" }
+                        minLength: { value: 3, message: "Name too short" },
+                        maxLength: { value: 25, message: "Name too long" }
                     })} />
-                    <span>{formState.errors.name?.message}</span>
+                    <span> {formState.errors.name?.message}</span>
                     <label>Name</label>
                 </div>
 
                 {/* Product Description */}
                 <div className="form-floating mb-3">
-                    <input type="text" className="form-control" id="exampleFormControlTextarea1" {...register("description", {
+                    <textarea className="form-control"  {...register("description", {
                         required: { value: true, message: "Missing Description" },
-                        min: { value: 3, message: "Description too short" }
+                        minLength: { value: 3, message: "Description too short" }
+                    })} />
+                    <span>{formState.errors.description?.message}</span>
+                    <label>Description</label>
+                </div>
+
+                {/* Product Description */}
+                <div className="form-floating mb-3">
+                    <input type="textarea" className="form-control" id="exampleFormControlTextarea1" {...register("description", {
+                        required: { value: true, message: "Missing Description" },
+                        minLength: { value: 3, message: "Description too short" }
                     })} />
                     <span>{formState.errors.description?.message}</span>
                     <label>Description</label>
