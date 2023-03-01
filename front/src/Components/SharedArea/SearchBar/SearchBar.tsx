@@ -25,21 +25,23 @@ function SearchBar(): JSX.Element {
     }
 
     return (
-        <form onSubmit={handleSearchSubmit}>
-            <input
-                type="text"
-                placeholder="Search for products"
-                value={searchTerm}
-                onChange={handleSearchTermChange}
-                list="pre-options"
-            />
-            <datalist id="pre-options">
-                {preOptions.map(option => (
-                    <option key={option.id} value={option.name} />
-                ))}
-            </datalist>
-            <button type="submit">Search</button>
-        </form>
+        <div className="SearchBar">
+            <form onSubmit={handleSearchSubmit} className="wrapper">
+                <input
+                    type="search"
+                    placeholder="Search for products..."
+                    value={searchTerm}
+                    onChange={handleSearchTermChange}
+                    list="pre-options"
+                />
+                {searchTerm.length >= 2 && <datalist id="pre-options">
+                    {preOptions.map(option => (
+                        <option key={option.id} value={option.name} />
+                    ))}
+                </datalist>}
+                <button type="submit" className="button-29">GO</button>
+            </form>
+        </div>
     );
 }
 

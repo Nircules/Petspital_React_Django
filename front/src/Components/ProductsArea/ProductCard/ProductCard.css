@@ -11,7 +11,7 @@
 
 .ProductCard .card {
     width: 250px;
-    height: 500px;
+    height: 600px;
     box-shadow: 0 4px 8px 6px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -19,7 +19,15 @@
     overflow-y: auto;
 }
 
-.ProductCard .card-title {
-    font-size: 150%;
-    text-decoration: underline;
+.ProductCard .card-footer {
+    font-size: x-large;
+    border-top: 1px solid black;
+    background-color: aliceblue;
+}
+
+.ProductCard .card-header {
+    background-color: aliceblue;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+
 }

@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import ProductModel from "../../../Models/ProductModel";
 import ProductCard from "../../ProductsArea/ProductCard/ProductCard";
+import SearchBar from "./SearchBar";
 
 function SearchResults(): JSX.Element {
     const location = useLocation();
@@ -10,6 +11,7 @@ function SearchResults(): JSX.Element {
 
     return (
         <div className="ProductsList">
+            <SearchBar></SearchBar>
             <h1>Search Results</h1>
             {products.length === 0 && <div>Could not find what you are looking for.</div>}
             <div className="row row-cols-1 row-cols-md-3 g-4">

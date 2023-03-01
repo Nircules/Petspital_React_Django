@@ -1,4 +1,4 @@
 .AuthMenu {
-    position: absolute;
-    right: 200px;
+    position: fixed;
+    right: 50px;
 }

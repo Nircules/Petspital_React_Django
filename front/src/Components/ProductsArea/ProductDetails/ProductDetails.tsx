@@ -14,6 +14,7 @@ function ProductDetails(): JSX.Element {
         productsService.getOneProductById(prodId)
             .then(p => setProduct(p))
             .catch(() => navigate("/products"))
+
     }, [])
 
     function deleteProduct() {
@@ -26,18 +27,23 @@ function ProductDetails(): JSX.Element {
     }
 
     return (
-        <div className="ProductDetails Box">
-            {product && <div>
-                <div className="card">
-                    <img src={config.productImagesUrl + product.image} className="card-img-top" alt="..." />
+        <div className="ProductDetails">
+            {product && <div className="row">
+                <img src={config.productImagesUrl + product.image} className="col border-beauty" alt="..." />
+                <div className="card col">
+                    <div className="card-header">{product.name}</div>
                     <div className="card-body">
-                        <h5 className="card-text">{product.name}</h5>
                         <p className="card-text">{product.description}</p>
-                        <p className="card-text">{product.price}₪</p>
-                        <p className="card-text">stock:{product.stock}</p>
+                        <p className="card-text">Stock: {product.stock}</p>
                     </div>
-                    <NavLink className="btn btn-primary" to={"/products/edit/" + product.id}>Edit</NavLink>
-                    <button className="btn btn-danger" onClick={deleteProduct}>Delete</button>
+                    <div className="card-footer">
+                        <p>{product.price}₪</p>
+                        <button className="button-29">ADD TO CART</button>
+                    </div>
+                    <div className="card-footer">
+                        <NavLink className="btn btn-primary" to={"/products/edit/" + product.id}>Edit</NavLink>
+                        <button className="btn btn-danger" onClick={deleteProduct}>Delete</button>
+                    </div>
                 </div>
             </div>}
         </div>

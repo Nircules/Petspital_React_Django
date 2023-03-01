@@ -27,3 +27,12 @@
     max-width: 250px;
     max-height: 250px;
 }
+
+.EditProduct .col>label{
+    margin-left: 10px;
+}
+
+.EditProduct .form-floating textarea{
+    resize: none;
+    height: 250px !important;
+}

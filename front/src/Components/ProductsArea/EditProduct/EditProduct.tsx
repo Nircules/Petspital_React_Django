@@ -28,7 +28,6 @@ function EditProduct(): JSX.Element {
             .catch(err => alert(err.message))
     }, [])
 
-
     function send(formProduct: ProductModel) {
         productsService.editProduct(formProduct)
             .then(editedProduct => { alert(product.name + " has been edited!"); navigate("/products/details/" + formProduct.id) })
@@ -45,7 +44,7 @@ function EditProduct(): JSX.Element {
                     <input type="text" className="form-control" id="floatingInput" {...register("name", {
                         required: { value: true, message: "Missing name" },
                         minLength: { value: 3, message: "Name too short" },
-                        maxLength: { value: 25, message: "Name too long" }
+                        maxLength: { value: 22, message: "Name too long" }
                     })} />
                     <span>{formState.errors.name?.message}</span>
                     <label>Name</label>
@@ -53,9 +52,9 @@ function EditProduct(): JSX.Element {
 
                 {/* Product Description */}
                 <div className="form-floating mb-3">
-                    <input type="text" className="form-control" id="exampleFormControlTextarea1" {...register("description", {
+                    <textarea className="form-control"  {...register("description", {
                         required: { value: true, message: "Missing Description" },
-                        minLength: { value: 3, message: "Description too short" },
+                        minLength: { value: 3, message: "Description too short" }
                     })} />
                     <span>{formState.errors.description?.message}</span>
                     <label>Description</label>
@@ -87,7 +86,7 @@ function EditProduct(): JSX.Element {
                 {/* Product Image */}
                 <img src={config.productImagesUrl + product?.image} />
                 <div className="input-group mb-3">
-                    <input type="file" className="form-control" id="inputGroupFile01" accept="image/*"  {...register("image")} />
+                    <input type="file" className="form-control" id="inputGroupFile01" accept="image/*" {...register("image")} />
                 </div>
 
                 {/* Product Sub Category */}

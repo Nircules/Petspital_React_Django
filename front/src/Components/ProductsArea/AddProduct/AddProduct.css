@@ -15,11 +15,13 @@
 
 .AddProduct span {
     color: red;
-    /* margin: 0 20px; */
-    /* position: absolute; */
-    /* Will stay exactly where it is. */
 }
 
-.col>label{
+.AddProduct .col>label{
     margin-left: 10px;
+}
+
+.AddProduct .form-floating textarea{
+    resize: none;
+    height: 250px !important;
 }

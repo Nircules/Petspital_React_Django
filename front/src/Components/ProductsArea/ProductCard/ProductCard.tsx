@@ -19,9 +19,10 @@ function ProductCard(props: ProductCardProps): JSX.Element {
                     <h5 className="card-header">{props.product.name}</h5>
                     <div className="card-body">
                         <p className="card-text">{props.product.description}</p>
-                        <p className="card-text">{props.product.price}₪</p>
-                        <p className="card-text">{props.product.sub_category}</p>
-                        <p className="card-text">stock: {props.product.stock}</p>
+                    </div>
+                    <div className="card-footer">
+                        <p>{props.product.price}₪</p>
+                        <button className="button-29">ADD TO CART</button>
                     </div>
                 </div>
             </div>

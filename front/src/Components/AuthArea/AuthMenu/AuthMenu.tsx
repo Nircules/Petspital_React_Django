@@ -1,8 +1,8 @@
 import "./AuthMenu.css";
 import userModel from "../../../Models/UserModel";
-import {useEffect, useState} from "react";
-import {authStore} from "../../../Redux/AuthStore";
-import {Navigate, NavLink} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { authStore } from "../../../Redux/AuthStore";
+import { Navigate, NavLink } from "react-router-dom";
 
 function AuthMenu(): JSX.Element {
 
@@ -21,7 +21,7 @@ function AuthMenu(): JSX.Element {
         <div className="AuthMenu">
             {!user && <div>
                 <span> Welcome | </span>
-                <NavLink to="/login">Login</NavLink> |
+                <NavLink to="/login">Login</NavLink> <span> | </span>
                 <NavLink to="/register">Register</NavLink>
             </div>}
 
