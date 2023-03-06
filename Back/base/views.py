@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from .models import Product, Category, Sub_Category, Specie
-from .serializer import ProductSerializer, SpecieSerializer, CategorySerializer, SubCategorySerializer
+from .serializer import ProductSerializer, SpecieSerializer, CategorySerializer, SubCategorySerializer, UsersSerializer
+from django.contrib.auth.models import User
 from django.db.models import Q
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -50,6 +51,17 @@ def my_products(request, product_id=-1):
             id=request.data['sub_category'])
         product.save()
         return JsonResponse(all_products, safe=False)
+
+
+@api_view(['GET', 'POST', 'DELETE', 'PUT'])
+def my_users(request, user_id=-1):
+    all_users = UsersSerializer(User.objects.all(), many=True).data
+    if request.method == "GET":
+        if user_id > -1:
+            single_user = UsersSerializer(User.objects.get(id=user_id)).data
+            return JsonResponse(single_user, safe=False)
+        else:
+            return JsonResponse(all_users, safe=False)
 
 
 def species(req):

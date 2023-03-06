@@ -1,7 +1,35 @@
 from django.db import models
+from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 
 
-# Create your models here.
+# This class holds the information of all the users in the App, wether staff or not.
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='user_profile')
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(unique=True, null=True)
+    phone_number = PhoneNumberField(region='IL', unique=True, null=True)
+    id_number = models.CharField(unique=True, max_length=9, null=True)
+    address = models.CharField(max_length=100)
+    join_date = models.DateField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        for field in ['first_name', 'last_name', 'address']:
+            value = getattr(self, field)
+            if value:
+                setattr(self, field, value.title())
+        for field in ['email', 'phone_number', 'id_number']:
+            value = getattr(self, field)
+            if not value:
+                setattr(self, field, None)
+        super(UserProfile, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+
 class Specie(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
