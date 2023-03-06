@@ -4,6 +4,7 @@ import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { useEffect, useState } from "react";
 import SpecieModel from "../../../Models/SpecieModel";
 import SubCategoryModel from "../../../Models/SubCategoryModel";
+import TotalProducts from "../../ProductsArea/TotalProducts/TotalProducts";
 
 function MenuComponent(): JSX.Element {
     interface CategoryModel {

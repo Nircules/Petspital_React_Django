@@ -1,19 +1,37 @@
 import "./Login.css";
-import {useForm} from "react-hook-form";
-import {useNavigate} from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import authService from "../../../Services/AuthService";
-import CredentialsModel from "../../../Models/CredentialsModel";
+import { useContext, useState } from "react";
+import UserModel from "../../../Models/UserModel";
+import config from "../../../Utils/Config";
+import { UserContext } from "../../../Redux/UserContext";
+import authFunctions from "../AuthMenu/AuthFunctions";
+import jwtDecode from "jwt-decode";
+
+interface TokenPayload {
+    user_id: number;
+}
 
 function Login(): JSX.Element {
-    const {register, handleSubmit} = useForm<CredentialsModel>()
+    const context = useContext(UserContext)
+    const { register, handleSubmit } = useForm<UserModel>()
     const navigate = useNavigate();
+    const [formErrors, setFormErrors] = useState('')
 
-    async function send(credentials: CredentialsModel) {
+    async function send(credentials: UserModel) {
         try {
-            await authService.login(credentials);
-            navigate("/home");
+            setFormErrors('')
+            await authFunctions.login(credentials)
+                .then(response => {
+                    const accessToken = JSON.parse(localStorage.getItem('tokens')).access;
+                    const container = jwtDecode<TokenPayload>(accessToken);
+                    authFunctions.getUserById(container.user_id)
+                        .then(user => { context.user = user })
+                        .then(() => navigate("/home"))
+                })
         } catch (err: any) {
-            alert(err.message)
+            setFormErrors(err.message)
         }
     }
 
@@ -22,15 +40,15 @@ function Login(): JSX.Element {
             <h2>Login</h2>
             <form onSubmit={handleSubmit(send)}>
                 <div className="form-floating">
-                    <input type="text" className="form-control" {...register("username")}/>
+                    <input type="text" className="form-control" {...register("username")} />
                     <label>Username</label>
                 </div>
 
                 <div className="form-floating">
-                    <input type="password" className="form-control" {...register("password")}/>
+                    <input type="password" className="form-control" {...register("password")} />
                     <label>Password</label>
                 </div>
-
+                {formErrors && <span style={{ color: 'red' }}>{formErrors}</span>}
                 <button className="btn btn-primary">Login</button>
             </form>
         </div>

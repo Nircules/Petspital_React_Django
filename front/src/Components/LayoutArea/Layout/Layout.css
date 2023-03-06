@@ -23,5 +23,5 @@
 
 .Layout,
 .Layout>* {
-    border: 1px solid black;
+    border: 1px solid rgb(177, 177, 179);
 }

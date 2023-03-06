@@ -1,22 +1,19 @@
 import "./AuthMenu.css";
-import userModel from "../../../Models/UserModel";
-import { useEffect, useState } from "react";
-import { authStore } from "../../../Redux/AuthStore";
-import { Navigate, NavLink } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { UserContext } from "../../../Redux/UserContext";
+import UserModel from "../../../Models/UserModel";
+import { useLocation } from 'react-router-dom';
 
 function AuthMenu(): JSX.Element {
 
-    const [user, setUser] = useState<userModel>();
+    const { pathname } = useLocation();
+    const context = useContext(UserContext);
+    const [user, setUser] = useState<UserModel | undefined>(context.user)
     useEffect(() => {
-        setUser(authStore.getState().user)
-        const unsubscribe = authStore.subscribe(() => {
-            setUser(authStore.getState().user)
-        })
+        setUser(context.user);
+    }, [pathname])
 
-        return () => {
-            unsubscribe();
-        }
-    }, [])
     return (
         <div className="AuthMenu">
             {!user && <div>
@@ -26,11 +23,10 @@ function AuthMenu(): JSX.Element {
             </div>}
 
             {user && <div>
-                <span>Welcome {user.firstName} {user.lastName} | </span>
+                <span>Welcome {user.username.toUpperCase()} | </span>
                 <NavLink to="/logout">Logout</NavLink>
             </div>}
         </div>
     );
 }
-
 export default AuthMenu;

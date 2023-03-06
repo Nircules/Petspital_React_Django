@@ -23,8 +23,11 @@ body,
   padding: 10px;
   border: 1px solid black;
   border-radius: 10px;
-  box-shadow: 5px 5px 10px;
-  text-align: left;
+  box-shadow: 1px 2px 28px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 1px 2px 28px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 2px 28px 0px rgba(0, 0, 0, 0.75);
+  text-align: center;
+  background-color: rgba(255, 240, 214, 0.753);
 }
 
 .Box>p {

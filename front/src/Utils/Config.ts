@@ -9,9 +9,9 @@ class Config {
     public CategoriesUrl = "http://127.0.0.1:8000/category_products/";
     public speciesUrl = "http://127.0.0.1:8000/species/"
 
-
     public registerUrl = "http://localhost:3030/api/auth/register/";
-    public loginUrl = "http://localhost:3030/api/auth/login/";
+    public loginUrl = "http://127.0.0.1:8000/accounts/token/";
+    public usersUrl = "http://127.0.0.1:8000/users/";
 }
 
 const config = new Config();
