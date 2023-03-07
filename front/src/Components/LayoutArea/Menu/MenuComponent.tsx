@@ -1,10 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import "./MenuComponent.css";
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SpecieModel from "../../../Models/SpecieModel";
 import SubCategoryModel from "../../../Models/SubCategoryModel";
-import TotalProducts from "../../ProductsArea/TotalProducts/TotalProducts";
+import { UserContext } from "../../../Redux/UserContext";
+import AddProduct from "../../ProductsArea/AddProduct/AddProduct";
+import UserModel from "../../../Models/UserModel";
 
 function MenuComponent(): JSX.Element {
     interface CategoryModel {
@@ -13,7 +15,14 @@ function MenuComponent(): JSX.Element {
         specieId: number;
         subcategories: SubCategoryModel[];
     }
+    const { pathname } = useLocation();
+    const context = useContext(UserContext);
+    const [user, setUser] = useState<UserModel | undefined>(context.user)
     const [species, setSpecies] = useState([]);
+    useEffect(() => {
+        setUser(context.user)
+    }, [pathname])
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -73,6 +82,9 @@ function MenuComponent(): JSX.Element {
             <hr />
             <Sidebar style={{ width: "100%" }}>
                 <Menu>
+                    {user && user.is_staff && <SubMenu label="Admin Panel">
+                        <MenuItem component={<NavLink to={'/products/new'} />}>Add Product</MenuItem>
+                    </SubMenu>}
                     <MenuItem component={<NavLink to="/" />} > Home </MenuItem>
                     <MenuItem component={<NavLink to="/products" />}> All Products </MenuItem>
                     <hr />

@@ -1,4 +1,19 @@
 .AuthMenu {
     position: fixed;
     right: 50px;
+    font-size: 125%;
+}
+
+.AuthMenu a {
+    text-decoration: none;
+}
+
+.AuthMenu .button-29 {
+    background-image: radial-gradient(100% 100% at 100% 0, #ffffff 0, #9854ff 100%);
+
+}
+
+.AuthMenu .button-29:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #4c2a7e 0 -3px 0 inset;
+    transform: translateY(-4px);
 }

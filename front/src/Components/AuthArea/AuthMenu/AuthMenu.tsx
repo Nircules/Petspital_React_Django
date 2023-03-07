@@ -1,6 +1,6 @@
 import "./AuthMenu.css";
 import { useEffect, useState, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { UserContext } from "../../../Redux/UserContext";
 import UserModel from "../../../Models/UserModel";
 import { useLocation } from 'react-router-dom';
@@ -26,14 +26,18 @@ function AuthMenu(): JSX.Element {
         <div className="AuthMenu">
             {!user && <div>
                 <span> Welcome | </span>
-                <NavLink to="/login">Login</NavLink> <span> | </span>
+                <NavLink to="/login">Login</NavLink>
                 <NavLink to="/register">Register</NavLink>
             </div>}
 
             {user && profile && <div>
-                <span>Welcome {!profile.first_name ? user.username.toUpperCase() : profile.first_name} | </span>
-                <NavLink to={"/user_profile/" + profile.id}>Profile | </NavLink>
-                <NavLink to="/logout">Logout</NavLink>
+                <span>Hello, {!profile.first_name ? user.username.toUpperCase() : profile.first_name} | </span>
+                <Link to={"/user_profile/" + profile.id}>
+                    <button className="button-29">Profile</button>
+                </Link> <span> | </span>
+                <Link to="/logout">
+                    <button className="button-29">Logout</button>
+                </Link>
             </div>}
         </div>
     );

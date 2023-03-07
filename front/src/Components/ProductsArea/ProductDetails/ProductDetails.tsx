@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import ProductModel from "../../../Models/ProductModel";
+import { UserContext } from "../../../Redux/UserContext";
 import productsService from "../../../Services/ProductsService";
 import config from "../../../Utils/Config";
 import "./ProductDetails.css";
@@ -9,6 +10,9 @@ function ProductDetails(): JSX.Element {
     const [product, setProduct] = useState<ProductModel>();
     const params = useParams();
     const navigate = useNavigate();
+    const context = useContext(UserContext)
+
+
     useEffect(() => {
         const prodId = +params.prodId;
         productsService.getOneProductById(prodId)
@@ -40,10 +44,10 @@ function ProductDetails(): JSX.Element {
                         <p>{product.price}₪</p>
                         <button className="button-29">ADD TO CART</button>
                     </div>
-                    <div className="card-footer">
+                    {context.user.is_staff && <div className="card-footer">
                         <NavLink className="btn btn-primary" to={"/products/edit/" + product.id}>Edit</NavLink>
                         <button className="btn btn-danger" onClick={deleteProduct}>Delete</button>
-                    </div>
+                    </div>}
                 </div>
             </div>}
         </div>

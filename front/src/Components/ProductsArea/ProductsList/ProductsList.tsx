@@ -17,7 +17,6 @@ function ProductsList(): JSX.Element {
     return (
         <div className="ProductsList">
             {products.length === 0 && <Loading />}
-            <NavLink to="/products/new">➕</NavLink>
             <div className="row row-cols-1 row-cols-md-3 g-4">
                 {products.map(p => <ProductCard key={p.id} product={p} />)}
             </div>

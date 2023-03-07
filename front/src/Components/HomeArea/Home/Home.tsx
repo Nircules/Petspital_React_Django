@@ -1,8 +1,5 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../../Redux/UserContext";
-import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
-import Clock from "../Clock/Clock";
-import Sales from "../Sales/Sales";
 
 import "./Home.css";
 
