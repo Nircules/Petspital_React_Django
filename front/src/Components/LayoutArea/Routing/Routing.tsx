@@ -11,6 +11,8 @@ import Logout from "../../AuthArea/Logout/Logout";
 import SubCategoryProductsList from "../../ProductsArea/SubCategoryProductsList/SubCategoryProductsList";
 import CategoryProductsList from "../../ProductsArea/CategoryProductsList/CategoryProductsList";
 import SearchResults from "../../SharedArea/SearchBar/SearchResults";
+import ProfileDetails from "../../AuthArea/ProfileDetails/ProfileDetails";
+import EditProfile from "../../AuthArea/EditProfile/EditProfile";
 
 
 function Routing(): JSX.Element {
@@ -29,6 +31,8 @@ function Routing(): JSX.Element {
                 <Route path="/register" element={<Register />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/logout" element={<Logout />}></Route>
+                <Route path="/user_profile/:user_id" element={<ProfileDetails />}></Route>
+                <Route path="/edit_profile/:user_id" element={<EditProfile />}></Route>
                 <Route path="/*" element={<NotFound404 />}></Route>
             </Routes>
         </div>

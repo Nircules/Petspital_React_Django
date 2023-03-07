@@ -1,6 +1,5 @@
 import "./Logout.css";
 import { useContext, useEffect } from "react";
-import authService from "../../../Services/AuthService";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../Redux/UserContext";
 
@@ -9,7 +8,7 @@ function Logout(): JSX.Element {
     const context = useContext(UserContext)
 
     useEffect(() => {
-        authService.logout();
+        localStorage.removeItem("tokens");
         context.user = null
         navigate("/login")
     }, [])

@@ -1,0 +1,7 @@
+.EditProfile>form {
+    width: 400px;
+}
+
+.EditProfile span {
+    color: red;
+}

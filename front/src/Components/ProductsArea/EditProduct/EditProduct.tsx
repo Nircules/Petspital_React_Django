@@ -30,7 +30,7 @@ function EditProduct(): JSX.Element {
 
     function send(formProduct: ProductModel) {
         productsService.editProduct(formProduct)
-            .then(editedProduct => { alert(product.name + " has been edited!"); navigate("/products/details/" + formProduct.id) })
+            .then(() => { alert(product.name + " has been edited!"); navigate("/products/details/" + formProduct.id) })
             .catch(err => alert(err.message))
     }
 

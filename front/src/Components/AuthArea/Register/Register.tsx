@@ -1,13 +1,15 @@
 import "./Register.css";
 import { useForm } from "react-hook-form";
 import UserModel from "../../../Models/UserModel";
-import authService from "../../../Services/AuthService";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import authFunctions from "../../../Services/AuthFunctions";
+import { UserContext } from "../../../Redux/UserContext";
 
 function Register(): JSX.Element {
     const { register, handleSubmit, formState, trigger } = useForm<UserModel>()
     const navigate = useNavigate();
+    const context = useContext(UserContext)
 
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -33,13 +35,15 @@ function Register(): JSX.Element {
             return
         } else {
             setPasswordError("");
-            return
         }
 
         try {
-            await authService.register(user);
-            alert("Welcome!");
-            navigate("/home");
+            await authFunctions.register(user)
+                .then(() => {
+                    authFunctions.login(user)
+                        .then(() => { context.user = user })
+                        .then(() => navigate("/home"))
+                })
         } catch (err: any) {
             alert(err.message)
         }

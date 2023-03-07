@@ -12,6 +12,7 @@ class Config {
     public registerUrl = "http://localhost:3030/api/auth/register/";
     public loginUrl = "http://127.0.0.1:8000/accounts/token/";
     public usersUrl = "http://127.0.0.1:8000/users/";
+    public usersProfilesUrl = "http://127.0.0.1:8000/user_profile/";
 }
 
 const config = new Config();

@@ -1,5 +1,5 @@
 from rest_framework import serializers  # type: ignore
-from .models import Product, Specie, Category, Sub_Category
+from .models import Product, Specie, Category, Sub_Category, UserProfile
 from django.contrib.auth.models import User
 
 
@@ -30,4 +30,10 @@ class SubCategorySerializer(serializers.ModelSerializer):
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password']
+        fields = ['id', 'username', 'password', 'is_staff']
+
+
+class UsersProfilesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = '__all__'

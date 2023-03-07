@@ -2,7 +2,7 @@ import jwtDecode from "jwt-decode";
 import { useContext, useEffect, useState } from "react";
 import UserModel from "../../../Models/UserModel";
 import { UserContext } from "../../../Redux/UserContext";
-import authFunctions from "../../AuthArea/AuthMenu/AuthFunctions";
+import authFunctions from "../../../Services/AuthFunctions";
 import Loading from "../../SharedArea/Loading/Loading";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";

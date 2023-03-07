@@ -1,11 +1,12 @@
 from django.http import JsonResponse
-from .models import Product, Category, Sub_Category, Specie
-from .serializer import ProductSerializer, SpecieSerializer, CategorySerializer, SubCategorySerializer, UsersSerializer
+from .models import Product, Category, Sub_Category, Specie, UserProfile
+from .serializer import ProductSerializer, SpecieSerializer, CategorySerializer, SubCategorySerializer, UsersSerializer, UsersProfilesSerializer
 from django.contrib.auth.models import User
 from django.db.models import Q
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from datetime import datetime
+from django.contrib.auth.hashers import make_password
 
 
 def index(req):
@@ -62,6 +63,42 @@ def my_users(request, user_id=-1):
             return JsonResponse(single_user, safe=False)
         else:
             return JsonResponse(all_users, safe=False)
+    if request.method == "POST":
+        u_username = request.data['username']
+        u_password = request.data['password']
+        hashed_password = make_password(u_password)
+        new_user = User.objects.create(
+            username=u_username, password=hashed_password)
+        response = UsersSerializer(User.objects.get(id=new_user.id)).data
+        if new_user:
+            UserProfile.objects.create(user_id=new_user.id)
+        return JsonResponse(response, safe=False)
+
+
+@api_view(['GET', 'PUT'])
+def user_profile(request, user_id=-1):
+    all_users = UsersProfilesSerializer(
+        UserProfile.objects.all(), many=True).data
+    if request.method == "GET":
+        if user_id > -1:
+            single_user = UsersProfilesSerializer(
+                UserProfile.objects.get(user=user_id)).data
+            return JsonResponse(single_user, safe=False)
+        else:
+            return JsonResponse(all_users, safe=False)
+    elif request.method == "PUT":
+        single_user = UserProfile.objects.get(user=user_id)
+        print('*'*500)
+        print(request.data['first_name'])
+        single_user.first_name = request.data['first_name']
+        single_user.last_name = request.data['last_name']
+        single_user.email = request.data['email']
+        single_user.phone_number = request.data['phone_number']
+        single_user.id_number = request.data['id_number']
+        single_user.address = request.data['address']
+        single_user.save()
+        result = UsersProfilesSerializer(single_user).data
+        return JsonResponse(result, safe=False)
 
 
 def species(req):

@@ -1,13 +1,11 @@
 import "./Login.css";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import authService from "../../../Services/AuthService";
 import { useContext, useState } from "react";
 import UserModel from "../../../Models/UserModel";
-import config from "../../../Utils/Config";
 import { UserContext } from "../../../Redux/UserContext";
-import authFunctions from "../AuthMenu/AuthFunctions";
 import jwtDecode from "jwt-decode";
+import authFunctions from "../../../Services/AuthFunctions";
 
 interface TokenPayload {
     user_id: number;
