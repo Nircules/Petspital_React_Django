@@ -26,8 +26,12 @@ function AuthMenu(): JSX.Element {
         <div className="AuthMenu">
             {!user && <div>
                 <span> Welcome | </span>
-                <NavLink to="/login">Login</NavLink>
-                <NavLink to="/register">Register</NavLink>
+                <Link to="/login">
+                    <button className="button-29">Login</button>
+                </Link> <span> | </span>
+                <Link to="/register">
+                    <button className="button-29 logout">Register</button>
+                </Link>
             </div>}
 
             {user && profile && <div>
@@ -36,7 +40,7 @@ function AuthMenu(): JSX.Element {
                     <button className="button-29">Profile</button>
                 </Link> <span> | </span>
                 <Link to="/logout">
-                    <button className="button-29">Logout</button>
+                    <button className="button-29 logout">Logout</button>
                 </Link>
             </div>}
         </div>

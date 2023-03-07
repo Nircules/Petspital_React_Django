@@ -120,7 +120,7 @@ function EditProfile(): JSX.Element {
                     <label>Address</label>
                 </div>
 
-                <button className="btn btn-primary">Edit</button>
+                <button type="submit" className="button-29">Edit</button>
             </form>
         </div>
     );

@@ -7,6 +7,7 @@ import ProductModel from "../../../Models/ProductModel";
 import SubCategoryModel from "../../../Models/SubCategoryModel";
 import productsService from "../../../Services/ProductsService";
 import config from "../../../Utils/Config";
+import Loading from "../../SharedArea/Loading/Loading";
 import "./EditProduct.css";
 
 function EditProduct(): JSX.Element {
@@ -75,7 +76,7 @@ function EditProduct(): JSX.Element {
     }
 
     if (isLoading) {
-        return
+        return <Loading />
     }
     return (
         <div className="EditProduct Box">

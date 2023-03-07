@@ -3,10 +3,6 @@ import UserModel from "../Models/UserModel";
 import UserProfileModel from "../Models/UserProfileModel";
 import config from "../Utils/Config";
 
-interface TokenPayload {
-    user_id: number;
-}
-
 class AuthFunctions {
     public async getUserById(user_id: number): Promise<UserModel> {
         const response = await axios.get<UserModel>(config.usersUrl + user_id)

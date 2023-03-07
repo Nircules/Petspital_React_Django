@@ -1,0 +1,22 @@
+.Checkout {
+    position: relative;
+}
+
+.Checkout ul,
+li {
+    list-style-type: none;
+}
+
+.Checkout .column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+.Checkout #bottom-checkout {
+    width: 100%;
+}
+
+.Checkout #cart-header {
+    font-size: 200%;
+}

@@ -33,3 +33,15 @@
 .ProductDetails .card-body {
     font-size: x-large;
 }
+
+.ProductDetails a {
+    text-decoration: none;
+}
+
+.ProductDetails a:hover {
+    color: white;
+}
+
+.ProductDetails .logout {
+    background-image: radial-gradient(100% 100% at 100% 0, #ffffff 0, #ff0808 100%);
+}

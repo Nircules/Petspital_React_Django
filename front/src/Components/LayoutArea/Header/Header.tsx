@@ -1,6 +1,7 @@
 import "./Header.css";
 import AuthMenu from "../../AuthArea/AuthMenu/AuthMenu";
 import SearchBar from "../../SharedArea/SearchBar/SearchBar";
+import Cart from "../../CartArea/Cart/Cart";
 
 
 function Header(): JSX.Element {
@@ -9,7 +10,7 @@ function Header(): JSX.Element {
         <div className="Header">
             <AuthMenu />
             <h1>PETSPITAL</h1>
-            <SearchBar />
+            <SearchBar /><Cart></Cart>
         </div>
 
     );

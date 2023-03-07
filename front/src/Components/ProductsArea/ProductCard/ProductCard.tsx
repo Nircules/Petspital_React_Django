@@ -1,14 +1,24 @@
 import { NavLink } from "react-router-dom";
+import { useContext, } from "react";
 import ProductModel from "../../../Models/ProductModel";
+import { CartContext } from "../../../Redux/CartContext";
 import config from "../../../Utils/Config";
 import "./ProductCard.css";
+import cartFunctions from "../../../Services/CartFunctions";
+import CartModel from "../../../Models/CartModel";
 
 interface ProductCardProps {
     product: ProductModel;
 }
 
-
 function ProductCard(props: ProductCardProps): JSX.Element {
+    // const { cart, setCart } = useContext(CartContext);
+    const { cart, setCart } = useContext(CartContext)
+    async function addProduct(product: ProductModel) {
+        await cartFunctions.changeCart(cart, product);
+        setCart(new CartModel());
+    }
+
     return (
         <div className="ProductCard">
             <div className="col">
@@ -22,7 +32,7 @@ function ProductCard(props: ProductCardProps): JSX.Element {
                     </div>
                     <div className="card-footer">
                         <p>{props.product.price}₪</p>
-                        <button className="button-29">ADD TO CART</button>
+                        <button className="button-29" onClick={() => addProduct(props.product)}>ADD TO CART</button>
                     </div>
                 </div>
             </div>

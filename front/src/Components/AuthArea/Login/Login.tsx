@@ -47,7 +47,7 @@ function Login(): JSX.Element {
                     <label>Password</label>
                 </div>
                 {formErrors && <span style={{ color: 'red' }}>{formErrors}</span>}
-                <button className="btn btn-primary">Login</button>
+                <button type="submit" className="button-29">Login</button>
             </form>
         </div>
     );

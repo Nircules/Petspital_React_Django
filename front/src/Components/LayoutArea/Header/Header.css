@@ -4,3 +4,8 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.Header .Cart {
+    position: absolute;
+    margin-left: 30px;
+}

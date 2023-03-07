@@ -13,6 +13,7 @@ import CategoryProductsList from "../../ProductsArea/CategoryProductsList/Catego
 import SearchResults from "../../SharedArea/SearchBar/SearchResults";
 import ProfileDetails from "../../AuthArea/ProfileDetails/ProfileDetails";
 import EditProfile from "../../AuthArea/EditProfile/EditProfile";
+import Checkout from "../../CartArea/Checkout/Checkout";
 
 
 function Routing(): JSX.Element {
@@ -33,6 +34,7 @@ function Routing(): JSX.Element {
                 <Route path="/logout" element={<Logout />}></Route>
                 <Route path="/user_profile/:user_id" element={<ProfileDetails />}></Route>
                 <Route path="/edit_profile/:user_id" element={<EditProfile />}></Route>
+                <Route path="/checkout" element={<Checkout />}></Route>
                 <Route path="/*" element={<NotFound404 />}></Route>
             </Routes>
         </div>

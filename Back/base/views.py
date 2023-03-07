@@ -106,10 +106,14 @@ def species(req):
     return JsonResponse(all_species, safe=False)
 
 
+@api_view(['GET', 'POST'])
 def sub_categories(req):
     all_sub_cats = SubCategorySerializer(
         Sub_Category.objects.all(), many=True).data
-    return JsonResponse(all_sub_cats, safe=False)
+    if req.method == 'GET':
+        return JsonResponse(all_sub_cats, safe=False)
+    elif req.method == 'POST':
+        sub_category_name = req.data['name']
 
 
 def categories(req):
