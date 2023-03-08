@@ -101,9 +101,15 @@ def user_profile(request, user_id=-1):
         return JsonResponse(result, safe=False)
 
 
+@api_view(['GET', 'POST'])
 def species(req):
     all_species = SpecieSerializer(Specie.objects.all(), many=True).data
-    return JsonResponse(all_species, safe=False)
+    if req.method == 'GET':
+        return JsonResponse(all_species, safe=False)
+    elif req.method == 'POST':
+        specie_name = req.data['name']
+        Specie.objects.create(name=specie_name)
+        return JsonResponse(all_species, safe=False)
 
 
 @api_view(['GET', 'POST'])
@@ -114,12 +120,23 @@ def sub_categories(req):
         return JsonResponse(all_sub_cats, safe=False)
     elif req.method == 'POST':
         sub_category_name = req.data['name']
+        category = Category.objects.get(
+            id=req.data['category'])
+        Sub_Category.objects.create(category=category, name=sub_category_name)
+        return JsonResponse(all_sub_cats, safe=False)
 
 
+@api_view(['GET', 'POST'])
 def categories(req):
     all_categoriess = CategorySerializer(
         Category.objects.all(), many=True).data
-    return JsonResponse(all_categoriess, safe=False)
+    if req.method == 'GET':
+        return JsonResponse(all_categoriess, safe=False)
+    elif req.method == 'POST':
+        category_name = req.data['name']
+        category_specie = Specie.objects.get(id=req.data['specie'])
+        Category.objects.create(specie=category_specie, name=category_name)
+        return JsonResponse(all_categoriess, safe=False)
 
 
 def products_by_sub_category(req, sub_category_id):
