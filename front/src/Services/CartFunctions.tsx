@@ -9,7 +9,9 @@ class CartFunctions {
         if (cart) {
             for (let i = 0; i < cart.productsWithAmount.length; i++) {
                 if (cart.productsWithAmount[i].product.id === product.id) {
-                    cart.productsWithAmount[i].amount += amount;
+                    if (cart.productsWithAmount[i].amount + amount > 0) {
+                        cart.productsWithAmount[i].amount += amount;
+                    }
                     localStorage.setItem("cart", JSON.stringify(cart));
                     return cart
                 }
