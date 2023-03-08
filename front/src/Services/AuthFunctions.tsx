@@ -19,6 +19,11 @@ class AuthFunctions {
         return response.data;
     }
 
+    public async getAllUsers(): Promise<UserModel[]> {
+        const response = await axios.get<UserModel[]>(config.usersUrl)
+        return response.data;
+    }
+
     public async login(credentials: UserModel): Promise<void> {
         let response = await fetch(config.loginUrl, {
             method: 'POST',
