@@ -83,14 +83,15 @@ function MenuComponent(): JSX.Element {
             <hr />
             <Sidebar style={{ width: "100%" }}>
                 <Menu>
-                    {user && user.is_staff && <SubMenu label="Admin Panel">
-                        <MenuItem component={<NavLink to={'/products/new'} />}>Add Product</MenuItem>
-                        <MenuItem component={<NavLink to={'/add_specie/'} />}>Add Specie</MenuItem>
-                        <MenuItem component={<NavLink to={'/add_category/'} />}>Add Category</MenuItem>
-                        <MenuItem component={<NavLink to={'/add_sub_category'} />}>Add Sub Category</MenuItem>
-                    </SubMenu>}
+
                     <MenuItem component={<NavLink to="/" />} > Home </MenuItem>
                     <MenuItem component={<NavLink to="/products" />}> All Products </MenuItem>
+                    {user && user.is_staff && <SubMenu label="Admin Panel">
+                        <MenuItem component={<NavLink to={'/products/new'} id='CategoryLabel' />}>Add Product</MenuItem>
+                        <MenuItem component={<NavLink to={'/add_specie/'} id='CategoryLabel' />}>Add Specie</MenuItem>
+                        <MenuItem component={<NavLink to={'/add_category/'} id='CategoryLabel' />}>Add Category</MenuItem>
+                        <MenuItem component={<NavLink to={'/add_sub_category'} id='CategoryLabel' />}>Add Sub Category</MenuItem>
+                    </SubMenu>}
                     <hr />
                     {species.map(specie => {
                         if (specie.categories.length > 0) {
