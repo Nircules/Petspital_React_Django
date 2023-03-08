@@ -50,7 +50,7 @@ function Cart(): JSX.Element {
                                 return <CartProductCard key={p.product.id} productsWithAmount={p} />
                             })}
                         </ul>
-                        <div className="total-price total">Total: {total_price}₪</div>
+                        <div className="total-price total">Total: ₪{total_price}</div>
                     </div>
 
                     : <div id="no-cart">No products.</div>
@@ -65,8 +65,8 @@ function Cart(): JSX.Element {
             <div className="w3-overlay" onClick={w3_close} style={{ cursor: "pointer" }} id="myOverlay"></div>
 
             <div>
-                <button className="w3-button w3-white w3-xxlarge" onClick={w3_open} id="shopping-cart">
-                    Cart <i className="fa">&#xf07a;</i>
+                <button className="button-29 open-cart" onClick={w3_open} id="shopping-cart">
+                    Cart <i className="fa fa-shopping-cart"></i>
                     <span className='badge badge-warning' id='lblCartCount'> {total_amount} </span>
                 </button>
             </div>

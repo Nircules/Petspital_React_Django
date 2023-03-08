@@ -47,7 +47,6 @@ function Layout(): JSX.Element {
                         <aside><MenuComponent></MenuComponent></aside>
                         <main><Routing></Routing></main>
                         <footer><Footer></Footer></footer>
-                        <Cart></Cart>
                     </CartProvider>
                 </UserContext.Provider>
             }
