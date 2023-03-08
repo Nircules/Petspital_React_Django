@@ -39,11 +39,7 @@ function Register(): JSX.Element {
 
         try {
             await authFunctions.register(user)
-                .then(() => {
-                    authFunctions.login(user)
-                        .then(() => { context.user = user })
-                        .then(() => navigate("/home"))
-                })
+                .then(() => navigate("/login"))
         } catch (err: any) {
             alert(err.message)
         }

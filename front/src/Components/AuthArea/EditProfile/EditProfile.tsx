@@ -13,6 +13,8 @@ function EditProfile(): JSX.Element {
     const [profile, setProfile] = useState<UserProfileModel>()
     const navigate = useNavigate()
     const [allProfiles, setAllProfiles] = useState<UserProfileModel[]>()
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
     const phoneRegex = /^\d{10}$/;
     const idNumberRegex = /^\d{9}$/;
 
@@ -30,6 +32,7 @@ function EditProfile(): JSX.Element {
                 }
             })
             .catch(err => alert(err.message))
+            .finally(() => setIsLoading(false))
         authFunctions.getAllProfiles()
             .then(response => setAllProfiles(response))
             .catch(err => alert(err.message))
