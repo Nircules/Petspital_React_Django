@@ -8,7 +8,7 @@ class UserProfileModel {
     public address: string;
     public join_date: string;
     public user: number;
-    
+
 }
 
 export default UserProfileModel;

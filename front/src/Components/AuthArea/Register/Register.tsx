@@ -2,9 +2,11 @@ import "./Register.css";
 import { useForm } from "react-hook-form";
 import UserModel from "../../../Models/UserModel";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import authFunctions from "../../../Services/AuthFunctions";
 import { UserContext } from "../../../Redux/UserContext";
+import Home from "../../HomeArea/Home/Home";
+import Loading from "../../SharedArea/Loading/Loading";
 
 function Register(): JSX.Element {
     const { register, handleSubmit, formState, trigger } = useForm<UserModel>()
@@ -14,9 +16,20 @@ function Register(): JSX.Element {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
+    const [userError, setUserError] = useState("");
 
     const usernameRegex = /^[a-zA-Z0-9-_]+$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+    const [allUsers, setAllUsers] = useState<UserModel[]>()
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        authFunctions.getAllUsers()
+            .then(response => setAllUsers(response))
+            .catch(err => alert(err.message))
+            .finally(() => setIsLoading(false))
+    }, [])
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
@@ -29,6 +42,11 @@ function Register(): JSX.Element {
         setPasswordError("");
     };
 
+    const handleUserFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        trigger("username");
+        setUserError("");
+    };
+
     async function send(user: UserModel) {
         if (password != confirmPassword) {
             setPasswordError("The two password fields didn't match.");
@@ -37,12 +55,28 @@ function Register(): JSX.Element {
             setPasswordError("");
         }
 
+        for (const back_user of allUsers) {
+            if (back_user.username === user.username) {
+                setUserError("Username already taken.")
+                return
+            }
+        }
+
         try {
             await authFunctions.register(user)
                 .then(() => navigate("/login"))
         } catch (err: any) {
             alert(err.message)
         }
+    }
+
+    if (isLoading) {
+        return <Loading />
+    }
+
+    if (context.user) {
+        navigate("/home")
+        return <Home />
     }
 
     return (
@@ -54,10 +88,12 @@ function Register(): JSX.Element {
                         required: { value: true, message: "User Name is required." },
                         minLength: { value: 3, message: "User Name Too Short." },
                         maxLength: { value: 22, message: "User Name Too Long." },
-                        pattern: { value: usernameRegex, message: "Invalid Input." }
+                        pattern: { value: usernameRegex, message: "Invalid Input." },
+                        onChange: handleUserFieldChange
                     })} />
                     <label>Username</label>
                     <span> {formState.errors.username?.message}</span>
+                    {userError && <span>{userError}</span>}
                 </div>
 
                 <div className="form-floating">

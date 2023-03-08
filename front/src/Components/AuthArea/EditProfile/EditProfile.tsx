@@ -19,6 +19,11 @@ function EditProfile(): JSX.Element {
     const idNumberRegex = /^\d{9}$/;
 
     useEffect(() => {
+        if (profile == undefined) {
+            setProfile(new UserProfileModel)
+            console.log(profile);
+        }
+        console.log("AFter", profile);
         authFunctions.getUserProfileById(context.user.id)
             .then(response => {
                 if (response.first_name != '') {
@@ -38,7 +43,13 @@ function EditProfile(): JSX.Element {
             .catch(err => alert(err.message))
     }, [])
 
+    if (isLoading) {
+        return <Loading />
+    }
+
     function send(formProfile: UserProfileModel) {
+
+
         for (const prof of allProfiles) {
             if (prof.email === formProfile.email && profile.email != prof.email) {
                 setError("email", { type: "emailTaken", message: "Email Already Taken" })

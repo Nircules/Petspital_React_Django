@@ -31,7 +31,7 @@ function ProductCard(props: ProductCardProps): JSX.Element {
                         <p className="card-text">{props.product.description}</p>
                     </div>
                     <div className="card-footer">
-                        <p>{props.product.price}₪</p>
+                        <p>₪{props.product.price}</p>
                         <button className="button-29" onClick={() => addProduct(props.product)}>ADD TO CART</button>
                     </div>
                 </div>

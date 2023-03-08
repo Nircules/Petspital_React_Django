@@ -5,6 +5,7 @@
     top: 0;
     left: 0;
     text-align: center;
+    background-color: rgb(247, 222, 243);
 }
 
 #close-cart {
@@ -22,20 +23,20 @@
 }
 
 .Cart .button-29 {
-    height: 100px;
+    height: 80px;
     font-size: 200%;
 }
 
-#shopping-cart {
+.Cart #shopping-cart {
     background-color: rgba(255, 255, 255, 0) !important;
 }
 
-#shopping-cart:hover {
+.Cart #shopping-cart:hover {
     color: white !important;
 }
 
-#shopping-cart>i {
-    font-size: 200%;
+.Cart #shopping-cart>i {
+    font-size: 10%;
     background: none;
 }
 
