@@ -2,3 +2,15 @@
     text-decoration: underline;
     font-weight: bold;
 }
+
+.Home>.Box {
+    position: relative;
+    min-width: 600px;
+    min-height: 400px;
+    font-size: 20px;
+}
+
+.Home>.Box>.bottom {
+    position: absolute;
+    bottom: 0;
+}

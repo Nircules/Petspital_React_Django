@@ -37,14 +37,11 @@ class CartFunctions {
         }
     }
 
-    public async clearCart(cart: CartModel, product: ProductModel): Promise<CartModel> {
-        for (let i = 0; i < cart.productsWithAmount.length; i++) {
-            if (cart.productsWithAmount[i].product.id === product.id) {
-                cart.productsWithAmount.splice(i, 1)
-                localStorage.setItem("cart", JSON.stringify(cart));
-                return cart
-            }
-        }
+    public async clearCart(): Promise<CartModel> {
+        localStorage.removeItem("cart")
+        const newCart = new CartModel()
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        return newCart
     }
 
 }

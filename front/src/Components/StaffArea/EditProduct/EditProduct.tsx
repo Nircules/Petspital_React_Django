@@ -31,7 +31,6 @@ function EditProduct(): JSX.Element {
     const navigate = useNavigate();
     const params = useParams();
     const { register, handleSubmit, formState, setValue } = useForm<ProductModel>();
-    const [subCats, setSubCats] = useState<SubCategoryModel[]>()
     const [categoriesWithSubcategories, setCategoriesWithSubcategories] = useState<CategoryWithSubcategories[]>([]);
 
     useEffect(() => {
@@ -147,6 +146,8 @@ function EditProduct(): JSX.Element {
 
                         ))}
                     </datalist>
+                    <label>Sub Category</label>
+
                 </div>
                 <button className="btn btn-primary">Edit</button>
             </form>

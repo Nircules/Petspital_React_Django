@@ -5,7 +5,6 @@ import { useContext, useEffect, useState } from "react";
 import SpecieModel from "../../../Models/SpecieModel";
 import SubCategoryModel from "../../../Models/SubCategoryModel";
 import { UserContext } from "../../../Redux/UserContext";
-import AddProduct from "../../ProductsArea/AddProduct/AddProduct";
 import UserModel from "../../../Models/UserModel";
 
 function MenuComponent(): JSX.Element {
@@ -15,6 +14,7 @@ function MenuComponent(): JSX.Element {
         specieId: number;
         subcategories: SubCategoryModel[];
     }
+
     const { pathname } = useLocation();
     const context = useContext(UserContext);
     const [user, setUser] = useState<UserModel | undefined>(context.user)
@@ -23,6 +23,7 @@ function MenuComponent(): JSX.Element {
         setUser(context.user)
     }, [pathname])
 
+    // This use effect creates a new object that hold each species => categories => subcategories accordingly.
     useEffect(() => {
         async function fetchData() {
             try {
@@ -75,7 +76,7 @@ function MenuComponent(): JSX.Element {
 
         fetchData();
 
-    }, []);
+    }, [pathname]);
 
     return (
         <div className="MenuComponent">
@@ -84,6 +85,9 @@ function MenuComponent(): JSX.Element {
                 <Menu>
                     {user && user.is_staff && <SubMenu label="Admin Panel">
                         <MenuItem component={<NavLink to={'/products/new'} />}>Add Product</MenuItem>
+                        <MenuItem component={<NavLink to={'/add_specie/'} />}>Add Specie</MenuItem>
+                        <MenuItem component={<NavLink to={'/add_category/'} />}>Add Category</MenuItem>
+                        <MenuItem component={<NavLink to={'/add_sub_category'} />}>Add Sub Category</MenuItem>
                     </SubMenu>}
                     <MenuItem component={<NavLink to="/" />} > Home </MenuItem>
                     <MenuItem component={<NavLink to="/products" />}> All Products </MenuItem>

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import CartModel from "../../../Models/CartModel";
 import { CartContext } from "../../../Redux/CartContext";
+import cartFunctions from "../../../Services/CartFunctions";
 import CartProductCard from "../CartProductCard/CartProductCard";
 import "./Cart.css";
 
@@ -18,11 +19,17 @@ function Cart(): JSX.Element {
 
     let total_price = 0;
     let total_amount = 0;
-    const { cart } = useContext(CartContext)
+    const { cart, setCart } = useContext(CartContext)
+
     useEffect(() => {
 
     }, [cart])
 
+
+    async function clearProducts() {
+        await cartFunctions.clearCart();
+        setCart(new CartModel());
+    }
 
     return (
         <div className="Cart">
@@ -51,6 +58,7 @@ function Cart(): JSX.Element {
                 }
 
                 <NavLink to="/checkout"><button className="button-29" id="checkout-button" onClick={w3_close}>Proceed To Checkout</button></NavLink>
+                <button className="btn btn-danger" id="checkout-button-clear" onClick={clearProducts}>Clear Cart</button>
             </div>
 
 

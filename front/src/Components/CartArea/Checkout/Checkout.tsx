@@ -37,17 +37,18 @@ function Checkout(): JSX.Element {
         <div className="Checkout">
             <h1>Checkout Page</h1>
             <hr />
-            <div id="cart-header">
+            {profile && <div id="cart-header">
                 Hello {profile.first_name} {profile.last_name} <br />
                 Phone Number: {profile.phone_number.replace('+972', '0')}
             </div>
+            }
             <hr />
             {cart.productsWithAmount.length > 0 ?
                 <div id="cart-content">
                     {cart.productsWithAmount.map(p => {
                         total_price += p.product.price * p.amount;
                         total_amount += p.amount;
-                        return <div className="column"><CartProductCard key={p.product.id} productsWithAmount={p} /></div>
+                        return <div className="column" key={p.product.id}><CartProductCard productsWithAmount={p} /></div>
                     })}
                 </div>
                 : <div id="no-cart">No products.</div>

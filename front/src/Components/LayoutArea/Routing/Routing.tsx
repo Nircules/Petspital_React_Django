@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "../../HomeArea/Home/Home";
-import AddProduct from "../../ProductsArea/AddProduct/AddProduct";
-import EditProduct from "../../ProductsArea/EditProduct/EditProduct";
+import AddProduct from "../../StaffArea/AddProduct/AddProduct";
+import EditProduct from "../../StaffArea/EditProduct/EditProduct";
 import ProductDetails from "../../ProductsArea/ProductDetails/ProductDetails";
 import ProductsList from "../../ProductsArea/ProductsList/ProductsList";
 import NotFound404 from "../NotFound404/NotFound404";
@@ -12,8 +12,11 @@ import SubCategoryProductsList from "../../ProductsArea/SubCategoryProductsList/
 import CategoryProductsList from "../../ProductsArea/CategoryProductsList/CategoryProductsList";
 import SearchResults from "../../SharedArea/SearchBar/SearchResults";
 import ProfileDetails from "../../AuthArea/ProfileDetails/ProfileDetails";
-import EditProfile from "../../AuthArea/EditProfile/EditProfile";
 import Checkout from "../../CartArea/Checkout/Checkout";
+import EditProfile from "../../AuthArea/EditProfile/EditProfile";
+import AddSubCategory from "../../StaffArea/AddSubCategory/AddSubCategory";
+import AddCategory from "../../StaffArea/AddCategory/AddCategory";
+import AddSpecie from "../../StaffArea/AddSpecie/AddSpecie";
 
 
 function Routing(): JSX.Element {
@@ -22,18 +25,24 @@ function Routing(): JSX.Element {
             <Routes>
                 <Route path="/" element={<Navigate to="/home" />}></Route>
                 <Route path="/home" element={<Home />}></Route>
+
                 <Route path="/products" element={<ProductsList />}></Route>
                 <Route path="/search_results" element={<SearchResults />}></Route>
                 <Route path="/sub_category_products/:subCategoryId" element={<SubCategoryProductsList />}></Route>
+                <Route path="/add_sub_category/" element={<AddSubCategory />}></Route>
+                <Route path="/add_category/" element={<AddCategory />}></Route>
+                <Route path="/add_specie/" element={<AddSpecie />}></Route>
                 <Route path="/category_products/:CategoryId" element={<CategoryProductsList />}></Route>
                 <Route path="/products/details/:prodId" element={<ProductDetails />}></Route>
                 <Route path="/products/new" element={<AddProduct />}></Route>
                 <Route path="/products/edit/:prodToEdit" element={<EditProduct />}></Route>
+
                 <Route path="/register" element={<Register />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/logout" element={<Logout />}></Route>
                 <Route path="/user_profile/:user_id" element={<ProfileDetails />}></Route>
                 <Route path="/edit_profile/:user_id" element={<EditProfile />}></Route>
+
                 <Route path="/checkout" element={<Checkout />}></Route>
                 <Route path="/*" element={<NotFound404 />}></Route>
             </Routes>

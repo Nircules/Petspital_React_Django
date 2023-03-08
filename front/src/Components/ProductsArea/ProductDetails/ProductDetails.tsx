@@ -12,6 +12,9 @@ import Loading from "../../SharedArea/Loading/Loading";
 import "./ProductDetails.css";
 
 function ProductDetails(): JSX.Element {
+
+    const [description, setDescription] = useState("");
+
     const { pathname } = useLocation();
     const [product, setProduct] = useState<ProductModel>();
     const params = useParams();
@@ -27,16 +30,25 @@ function ProductDetails(): JSX.Element {
         setCart(new CartModel());
     }
 
+    async function removeProduct(product: ProductModel) {
+        await cartFunctions.removeFromCart(cart, product);
+        setCart(new CartModel());
+    }
+
     useEffect(() => {
         setUser(context.user)
         const prodId = +params.prodId;
         productsService.getOneProductById(prodId)
-            .then(p => setProduct(p))
+            .then(p => {
+                setProduct(p);
+                setDescription(p.description.replace(/\n/g, "<br />"));
+            })
             .catch(() => navigate("/products"))
             .finally(() => setIsLoading(false))
     }, [pathname])
 
     function deleteProduct() {
+        removeProduct(product)
         productsService.deleteProduct(product.id)
             .then(() => {
                 alert(product.name + " has been deleted");
@@ -56,7 +68,7 @@ function ProductDetails(): JSX.Element {
                 <div className="card col">
                     <div className="card-header">{product.name}</div>
                     <div className="card-body">
-                        <p className="card-text">{product.description}</p>
+                        {description && <p className="card-text" dangerouslySetInnerHTML={{ __html: description }} />}
                         <p className="card-text">Stock: {product.stock}</p>
                     </div>
                     <div className="card-footer">

@@ -6,24 +6,59 @@ import SubCategoryModel from "../../../Models/SubCategoryModel";
 import productsService from "../../../Services/ProductsService";
 import "./AddProduct.css";
 
+interface CategoryInterface {
+    id: number;
+    name: string;
+    specieId: number;
+    subcategories: SubCategoryModel[];
+}
 function AddProduct(): JSX.Element {
 
     const navigate = useNavigate();
     const { register, handleSubmit, formState } = useForm<ProductModel>();
-    const [subCategories, setSubCategories] = useState<SubCategoryModel[]>([]);
+    const [categories, setCategories] = useState<CategoryInterface[]>([]);
+
+    const options = categories.flatMap((category) => (
+        category.subcategories.map((subcategory) => (
+            <option key={`${category.name}-${subcategory.name}`} value={subcategory.id}>
+                {`${category.name}, ${subcategory.name}`}
+            </option>
+        ))
+    ));
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/sub_categories')
-            .then(response => response.json())
-            .then(subCats => setSubCategories(subCats))
-            .catch(err => alert(err.message))
+        async function fetchData() {
+            try {
+                // Fetch categories
+                const categoriesResponse = await fetch("http://127.0.0.1:8000/categories");
+                const categories = await categoriesResponse.json() as CategoryInterface[];
+
+                // Fetch subcategories for each category
+                const categoriesWithSubcategories = await Promise.all(
+                    categories.map(async (category) => {
+                        const subcategoriesResponse = await fetch(
+                            "http://127.0.0.1:8000/sub_categories_by_category/" + category.id
+                        );
+                        const subcategories = await subcategoriesResponse.json() as SubCategoryModel[];
+
+                        return {
+                            ...category,
+                            subcategories,
+                        };
+                    })
+                );
+                setCategories(categoriesWithSubcategories);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchData();
     }, [])
 
     async function send(product: ProductModel) {
         try {
-            const addedProduct = await productsService.addProduct(product);
+            await productsService.addProduct(product);
             navigate("/products");
-            console.log(addedProduct);
         }
         catch (err: any) {
             alert(err.message);
@@ -62,7 +97,7 @@ function AddProduct(): JSX.Element {
                         <input type="number" className="form-control" id="floatingInput" {...register("price", {
                             required: { value: true, message: "Missing price" },
                             min: { value: 1, message: "price cant be below 1" },
-                            max: { value: 100, message: "price cant be over 100" }
+                            max: { value: 20000, message: "price cant be over 20000" }
                         })} />
                         <span>{formState.errors.price?.message}</span>
                         <label>Price</label>
@@ -83,10 +118,12 @@ function AddProduct(): JSX.Element {
                 </div>
                 {/* Product Sub Category */}
                 <div className="form-floating mb-3">
-                    <input type="number" className="form-control" id="exampleFormControlTextarea1" {...register("sub_category", {
+                    <input type="text" className="form-control" list="subCats" {...register("sub_category", {
                         required: { value: true, message: "Missing Sub Category" }
                     })} />
-                    <span>{formState.errors.sub_category?.message}</span>
+                    <datalist id="subCats">
+                        {options}
+                    </datalist>
                     <label>Sub Category</label>
                 </div>
                 <button className="btn btn-primary" type="submit">Add</button>

@@ -76,3 +76,9 @@
 #no-cart {
     font-size: 200%;
 }
+
+.Cart #checkout-button-clear {
+    width: 100%;
+    font-size: 200% !important;
+    border-radius: 0 !important;
+}
