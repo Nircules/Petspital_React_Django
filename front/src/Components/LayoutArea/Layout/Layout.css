@@ -3,7 +3,7 @@
     box-sizing: border-box;
     /* Real width and height */
     display: grid;
-    grid-template-rows: 15% 80% 5%;
+    grid-template-rows: 20% 77% 3%;
     grid-template-columns: repeat(6, 1fr);
     /* fr = Fraction = יחידת מידה אחת */
 }

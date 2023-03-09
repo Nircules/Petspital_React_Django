@@ -43,11 +43,13 @@ function CartProductCard(props: CartProductCardProps): JSX.Element {
                 <h2 className="item-name">{props.productsWithAmount.product.name}</h2>
                 <span className="item-price">Price for one: ₪{props.productsWithAmount.product.price}</span><br />
                 <span className="item-quantity">
-                    <button className="btn btn-danger" onClick={() => addProduct(props.productsWithAmount.product, -1)}>-</button>
+                    <button className="btn btn-danger" onClick={() => addProduct(props.productsWithAmount.product, -1)}>
+                        <i className="fa fa-minus"></i>
+                    </button>
                     &nbsp;&nbsp;&nbsp;
                     Quantity: {props.productsWithAmount.amount}
                     &nbsp;&nbsp;&nbsp;
-                    <button className="btn btn-success" onClick={() => addProduct(props.productsWithAmount.product)}>+</button>
+                    <button className="btn btn-success" onClick={() => addProduct(props.productsWithAmount.product)}><i className="fa fa-plus"></i></button>
                 </span><br />
                 <span className="total-price">Total: ₪{props.productsWithAmount.product.price * props.productsWithAmount.amount}</span>
             </li>

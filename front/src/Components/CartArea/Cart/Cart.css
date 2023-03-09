@@ -5,13 +5,27 @@
     top: 0;
     left: 0;
     text-align: center;
-    background-color: rgb(255, 248, 212);
+    background-color: rgb(250, 248, 236);
 }
 
 #close-cart {
     text-align: start;
     top: 0;
     left: 0;
+}
+
+.close-cart-button {
+    position: relative;
+    background-color: red;
+    color: white;
+    font-size: 250%;
+    border: none;
+    transition: all 0.3s;
+    width: 70px;
+}
+
+.close-cart-button:hover {
+    background-color: rgb(185, 0, 0);
 }
 
 #cart-title {

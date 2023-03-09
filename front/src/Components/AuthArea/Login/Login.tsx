@@ -15,19 +15,28 @@ function Login(): JSX.Element {
     const context = useContext(UserContext)
     const { register, handleSubmit } = useForm<UserModel>()
     const navigate = useNavigate();
-    const [formErrors, setFormErrors] = useState('')
+    const [formErrors, setFormErrors] = useState('');
 
     async function send(credentials: UserModel) {
+        console.log("Username: ", credentials.username);
+        console.log("Password: ", credentials.password);
+
         try {
-            setFormErrors('')
-            await authFunctions.login(credentials)
-                .then(response => {
-                    const accessToken = JSON.parse(localStorage.getItem('tokens')).access;
-                    const container = jwtDecode<TokenPayload>(accessToken);
-                    authFunctions.getUserById(container.user_id)
-                        .then(user => { context.user = user })
-                        .then(() => navigate("/home"))
-                })
+            if (credentials.password === '' || credentials.username === '') {
+                setFormErrors("Please fill Username and Password.")
+                return
+            }
+            else {
+                setFormErrors('')
+                await authFunctions.login(credentials)
+                    .then(response => {
+                        const accessToken = JSON.parse(localStorage.getItem('tokens')).access;
+                        const container = jwtDecode<TokenPayload>(accessToken);
+                        authFunctions.getUserById(container.user_id)
+                            .then(user => { context.user = user })
+                            .then(() => navigate("/home"))
+                    })
+            }
         } catch (err: any) {
             setFormErrors(err.message)
         }

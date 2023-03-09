@@ -1,5 +1,7 @@
-.Checkout {
-    position: relative;
+.Checkout #cart-products::after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .Checkout ul,
@@ -13,10 +15,20 @@ li {
     padding: 10px;
 }
 
-.Checkout #bottom-checkout {
+#cart-content>#bottom-checkout {
+    position: absolute;
     width: 100%;
+    padding-bottom: 20px;
 }
 
-.Checkout #cart-header {
+#cart-content {
+    position: relative;
+}
+
+.Checkout>#cart-content>#cart-header {
+    font-size: 200%;
+}
+
+.Checkout .total {
     font-size: 200%;
 }

@@ -37,9 +37,9 @@ function Cart(): JSX.Element {
             <div className="w3-sidebar w3-bar-block w3-animate-left" style={{ display: "none" }} id="mySidebar">
 
                 <div id="close-cart">
-                    <button className="w3-button w3-white w3-xxlarge" onClick={w3_close}> &times;</button>
+                    <button className="close-cart-button" onClick={w3_close}> <i className="fa fa-close"></i></button>
                 </div>
-                <h1 id="cart-title">Your Cart:</h1>
+                <h1 id="cart-title">Your Cart: <i className="fa fa-shopping-cart"></i></h1>
                 <hr />
                 {cart.productsWithAmount.length > 0 ?
                     <div id="cart-content">

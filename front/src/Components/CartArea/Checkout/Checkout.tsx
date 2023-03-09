@@ -35,30 +35,32 @@ function Checkout(): JSX.Element {
 
     return (
         <div className="Checkout">
-            <h1>Checkout Page</h1>
-            <hr />
-            {profile && <div id="cart-header">
-                Hello {profile.first_name} {profile.last_name} <br />
-                Phone Number: {profile.phone_number.replace('+972', '0')}
-            </div>
-            }
-            <hr />
-            {cart.productsWithAmount.length > 0 ?
-                <div id="cart-content">
-                    {cart.productsWithAmount.map(p => {
-                        total_price += p.product.price * p.amount;
-                        total_amount += p.amount;
-                        return <div className="column" key={p.product.id}><CartProductCard productsWithAmount={p} /></div>
-                    })}
+            <div id="cart-content">
+                <h1>Checkout Page</h1>
+                <hr />
+                {profile && <div id="cart-header">
+                    Hello {profile.first_name} {profile.last_name} <br />
+                    Phone Number: {profile.phone_number.replace('+972', '0')}
                 </div>
-                : <div id="no-cart">No products.</div>
+                }
+                <hr />
+                {cart.productsWithAmount.length > 0 ?
+                    <div id="cart-products">
+                        {cart.productsWithAmount.map(p => {
+                            total_price += p.product.price * p.amount;
+                            total_amount += p.amount;
+                            return <div className="column" key={p.product.id}><CartProductCard productsWithAmount={p} /></div>
+                        })}
+                    </div>
+                    : <div id="no-cart">No products.</div>
 
-            }
+                }
 
-            <div id="bottom-checkout">
-                {user ?
+
+                {user ? <div id="bottom-checkout">
+                    <span className="total-price total">Total: ₪{total_price} <br /></span>
                     <button className="button-29" onClick={() => order(cart)}>Order Now</button>
-                    :
+                </div> :
                     <div className="btn btn-warning" onClick={() => navigate("/login")}>Must be logged in to checkout.</div>}
             </div>
         </div>
