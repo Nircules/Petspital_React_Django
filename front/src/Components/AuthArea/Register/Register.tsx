@@ -7,6 +7,11 @@ import authFunctions from "../../../Services/AuthFunctions";
 import { UserContext } from "../../../Redux/UserContext";
 import Home from "../../HomeArea/Home/Home";
 import Loading from "../../SharedArea/Loading/Loading";
+import jwtDecode from "jwt-decode";
+
+interface TokenPayload {
+    user_id: number;
+}
 
 function Register(): JSX.Element {
     const { register, handleSubmit, formState, trigger } = useForm<UserModel>()
@@ -64,7 +69,17 @@ function Register(): JSX.Element {
 
         try {
             await authFunctions.register(user)
-                .then(() => navigate("/login"))
+                .then(() => {
+                    authFunctions.login(user)
+                        .then(response => {
+                            const accessToken = JSON.parse(localStorage.getItem('tokens')).access;
+                            const container = jwtDecode<TokenPayload>(accessToken);
+                            authFunctions.getUserById(container.user_id)
+                                .then(user => { context.user = user })
+                                .then(() => navigate("/home"))
+                        })
+                })
+
         } catch (err: any) {
             alert(err.message)
         }
