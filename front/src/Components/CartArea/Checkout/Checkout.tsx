@@ -25,13 +25,22 @@ function Checkout(): JSX.Element {
         setUser(context.user);
         if (context.user) {
             authFunctions.getUserProfileById(context.user.id)
-                .then(response => setProfile(response));
+                .then(response => {
+                    if (response.first_name === '') {
+                        navigate(`/edit_profile/${context.user.id}`)
+                    }
+                    else {
+                        setProfile(response)
+                    }
+                })
         }
+
     }, [])
 
     async function order(cart: CartModel) {
         alert("Sorry our website is under maintenance, can't take orders now.")
     }
+
 
     return (
         <div className="Checkout">
