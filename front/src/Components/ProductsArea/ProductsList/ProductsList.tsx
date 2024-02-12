@@ -18,7 +18,6 @@ function ProductsList(): JSX.Element {
 
 	return (
 		<div className="ProductsList">
-			<AddProduct />
 			{products.length === 0 && <Loading />}
 			<div className="row row-cols-1 row-cols-md-3 g-4">
 				{products.map((p) => (
